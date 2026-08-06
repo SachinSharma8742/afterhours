@@ -5,9 +5,12 @@ import { useRouter } from "next/navigation";
 import { Plus, Minus, Ticket, ShieldCheck, ArrowRight } from "lucide-react";
 import { formatCurrency } from "../../lib/utils/formatters";
 
+import ConsentModal from "../ui/ConsentModal";
+
 export default function TicketSelector({ event }) {
   const router = useRouter();
   const ticketTypes = event?.ticket_types || [];
+  const [showConsentModal, setShowConsentModal] = useState(false);
 
   const [quantities, setQuantities] = useState(() => {
     const initial = {};
@@ -35,6 +38,11 @@ export default function TicketSelector({ event }) {
 
   const handleProceedCheckout = () => {
     if (totalTickets === 0) return;
+    setShowConsentModal(true);
+  };
+
+  const handleConsentAccept = () => {
+    setShowConsentModal(false);
 
     const selectedItems = ticketTypes
       .filter((t) => (quantities[t.id] || 0) > 0)
@@ -53,6 +61,7 @@ export default function TicketSelector({ event }) {
 
     sessionStorage.setItem(`checkout_selection_${targetSlug}`, payload);
     if (event.id) sessionStorage.setItem(`checkout_selection_${event.id}`, payload);
+    sessionStorage.setItem("attendee_consent_accepted", "true");
 
     router.push(`/checkout/${targetSlug}`);
   };
@@ -143,6 +152,12 @@ export default function TicketSelector({ event }) {
           <span>Guaranteed Authentic Gate Pass</span>
         </div>
       </div>
+
+      <ConsentModal
+        isOpen={showConsentModal}
+        onClose={() => setShowConsentModal(false)}
+        onAccept={handleConsentAccept}
+      />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Modal from "@/components/ui/Modal";
+import ConsentModal from "@/components/ui/ConsentModal";
 import { getEventByIdOrSlug } from "@/lib/services/event-service";
 import { applyCouponCode, createBookingOrder } from "@/lib/services/booking-service";
 import { formatCurrency } from "@/lib/utils/formatters";
@@ -32,6 +33,9 @@ export default function CheckoutPage({ params }) {
   const [subtotal, setSubtotal] = useState(0);
   const [currentUserId, setCurrentUserId] = useState(null);
 
+  // Consent Modal State
+  const [showConsentModal, setShowConsentModal] = useState(false);
+
   // Form State
   const [attendeeName, setAttendeeName] = useState("");
   const [attendeeEmail, setAttendeeEmail] = useState("");
@@ -49,6 +53,14 @@ export default function CheckoutPage({ params }) {
   // Success Modal State
   const [createdOrder, setCreatedOrder] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined" && sessionStorage.getItem("attendee_consent_accepted") !== "true") {
+        setShowConsentModal(true);
+      }
+    } catch {}
+  }, []);
 
   useEffect(() => {
     async function loadCheckoutEvent() {
@@ -415,6 +427,15 @@ export default function CheckoutPage({ params }) {
           </button>
         </div>
       </Modal>
+
+      <ConsentModal
+        isOpen={showConsentModal}
+        onClose={() => setShowConsentModal(false)}
+        onAccept={() => {
+          try { sessionStorage.setItem("attendee_consent_accepted", "true"); } catch {}
+          setShowConsentModal(false);
+        }}
+      />
     </div>
   );
 }

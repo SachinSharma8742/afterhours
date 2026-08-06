@@ -59,9 +59,13 @@ export default function Navbar() {
             <Link href="/contact" className={navLinkClass("/contact")}>
               CONTACT US
             </Link>
-            {user && (
+            {user ? (
               <Link href="/dashboard/tickets" className={navLinkClass("/dashboard/tickets")}>
                 MY PASSES
+              </Link>
+            ) : (
+              <Link href="/login" className={navLinkClass("/login")}>
+                LOGIN
               </Link>
             )}
           </div>
@@ -85,14 +89,19 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link href="/events">
-                <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
-                  <span className="relative z-10">BOOK TICKETS</span>
-                  <span className="grunge-arrow grunge-arrow--nav relative z-10">
-                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  </span>
-                </button>
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link href="/login" className="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-[#c8102e] transition-colors px-3 py-2">
+                  LOGIN
+                </Link>
+                <Link href="/events">
+                  <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
+                    <span className="relative z-10">BOOK TICKETS</span>
+                    <span className="grunge-arrow grunge-arrow--nav relative z-10">
+                      <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    </span>
+                  </button>
+                </Link>
+              </div>
             )}
           </div>
 
@@ -126,11 +135,16 @@ export default function Navbar() {
               MY PASSES
             </Link>
           ) : (
-            <Link href="/events" onClick={() => setMobileOpen(false)} className="mt-2">
-              <button className="w-full py-3 bg-[#c8102e] text-white font-bold tracking-widest uppercase">
-                BOOK TICKETS NOW
-              </button>
-            </Link>
+            <>
+              <Link href="/login" onClick={() => setMobileOpen(false)} className={pathname === "/login" ? "text-[#c8102e]" : "text-gray-300"}>
+                LOGIN
+              </Link>
+              <Link href="/events" onClick={() => setMobileOpen(false)} className="mt-2">
+                <button className="w-full py-3 bg-[#c8102e] text-white font-bold tracking-widest uppercase">
+                  BOOK TICKETS NOW
+                </button>
+              </Link>
+            </>
           )}
         </div>
       )}
