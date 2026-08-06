@@ -60,7 +60,7 @@ export default function CheckoutPage({ params }) {
       } catch {}
 
       try {
-        const stored = sessionStorage.getItem(`checkout_selection_${eventId}`);
+        const stored = sessionStorage.getItem(`checkout_selection_${eventId}`) || (found?.id && sessionStorage.getItem(`checkout_selection_${found.id}`));
         if (stored) {
           const parsed = JSON.parse(stored);
           setSelectedItems(parsed.items || []);

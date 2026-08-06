@@ -45,15 +45,16 @@ export default function TicketSelector({ event }) {
         quantity: quantities[t.id],
       }));
 
-    sessionStorage.setItem(
-      `checkout_selection_${event.id}`,
-      JSON.stringify({
-        items: selectedItems,
-        subtotal: subtotal,
-      })
-    );
+    const targetSlug = event.slug || event.id;
+    const payload = JSON.stringify({
+      items: selectedItems,
+      subtotal: subtotal,
+    });
 
-    router.push(`/checkout/${event.id}`);
+    sessionStorage.setItem(`checkout_selection_${targetSlug}`, payload);
+    if (event.id) sessionStorage.setItem(`checkout_selection_${event.id}`, payload);
+
+    router.push(`/checkout/${targetSlug}`);
   };
 
   return (

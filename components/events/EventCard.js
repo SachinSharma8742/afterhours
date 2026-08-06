@@ -52,7 +52,7 @@ export default function EventCard({ event, onWishlistToggle, isWishlisted = fals
 
         {/* Content */}
         <div className="p-5 flex flex-col gap-2.5">
-          <Link href={`/events/${event.id}`}>
+          <Link href={`/events/${event.slug || event.id}`}>
             <h3 className="font-bebas text-2xl tracking-wider text-white group-hover:text-[#c8102e] transition-colors leading-tight line-clamp-1">
               {event.title}
             </h3>
@@ -84,7 +84,7 @@ export default function EventCard({ event, onWishlistToggle, isWishlisted = fals
           </span>
         </div>
 
-        <Link href={`/events/${event.id}`}>
+        <Link href={`/events/${event.slug || event.id}`}>
           <button className="btn-sharp-red px-4 py-2 text-xs flex items-center gap-2">
             <span>GET PASS</span>
             <ArrowRight className="w-3.5 h-3.5" />
