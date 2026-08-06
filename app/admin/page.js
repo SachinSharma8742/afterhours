@@ -58,6 +58,8 @@ export default function AdminDashboardPage() {
 
   // Coupons State
   const [couponsList, setCouponsList] = useState([
+    { id: "c-randi", code: "RANDI", discount_type: "override", discount_value: 10, times_used: 42 },
+    { id: "c-friend", code: "FRIEND", discount_type: "fixed", discount_value: 200, times_used: 19 },
     { id: "c-1", code: "WELCOME10", discount_type: "percentage", discount_value: 10, times_used: 14 },
     { id: "c-2", code: "AFTERHOURS20", discount_type: "fixed", discount_value: 20, times_used: 8 },
   ]);

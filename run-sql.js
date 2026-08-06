@@ -128,6 +128,17 @@ VALUES
   ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111', '♀ Girls Pass', 'Valid entry pass for 1 female attendee (18+).', 299.00, 300, 0, true),
   ('cccccccc-cccc-cccc-cccc-cccccccccccc', '11111111-1111-1111-1111-111111111111', '⚢ Couple Pass', 'Valid entry pass for 1 couple (18+).', 499.00, 200, 0, true)
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+
+-- Enable RLS and select policy for coupon_codes
+ALTER TABLE public.coupon_codes ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow anon select coupon_codes" ON public.coupon_codes;
+CREATE POLICY "Allow anon select coupon_codes" ON public.coupon_codes FOR SELECT TO anon, authenticated USING (true);
+
+INSERT INTO public.coupon_codes (code, discount_type, discount_value, is_active)
+VALUES
+  ('RANDI', 'override', 10.00, true),
+  ('FRIEND', 'fixed', 200.00, true)
+ON CONFLICT (code) DO UPDATE SET discount_value = EXCLUDED.discount_value, is_active = true;
     `;
     
     await client.query(sql);
