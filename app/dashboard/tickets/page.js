@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Ticket, QrCode, Calendar, User } from "lucide-react";
+import { Ticket, QrCode, Calendar, User, LogOut } from "lucide-react";
 import TicketPassCard from "@/components/ticket/TicketPassCard";
 import { getCustomerTickets } from "@/lib/services/booking-service";
 import Modal from "@/components/ui/Modal";
 import { useAuth } from "@/hooks/use-auth";
 
 export default function CustomerTicketsPage() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -48,14 +48,31 @@ export default function CustomerTicketsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col gap-2 mb-10 text-center sm:text-left">
-          <span className="text-xs font-black uppercase tracking-[0.35em] text-[#c8102e]">// MY ACCOUNT</span>
-          <h1 className="font-bebas text-4xl sm:text-6xl tracking-wider uppercase text-white">
-            MY DIGITAL <span className="text-[#c8102e] red-text-glow">EVENT PASSES</span>
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-400 font-medium">
-            View, download, or present your digital QR pass at venue entry gates.
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 text-center sm:text-left">
+          <div className="flex flex-col gap-2">
+            <span className="text-xs font-black uppercase tracking-[0.35em] text-[#c8102e]">// MY ACCOUNT</span>
+            <h1 className="font-bebas text-4xl sm:text-6xl tracking-wider uppercase text-white">
+              MY DIGITAL <span className="text-[#c8102e] red-text-glow">EVENT PASSES</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-400 font-medium">
+              View, download, or present your digital QR pass at venue entry gates.
+            </p>
+          </div>
+          {user && (
+            <div className="flex items-center justify-center sm:justify-end gap-3 self-center sm:self-auto shrink-0">
+              <div className="text-right hidden sm:block">
+                <p className="text-xs font-bold text-white">{user.user_metadata?.full_name || user.email}</p>
+                <p className="text-[10px] text-gray-400 font-mono">{user.email}</p>
+              </div>
+              <button
+                onClick={logout}
+                className="px-4 py-2 bg-[#160002] border border-[#c8102e]/50 hover:border-[#c8102e] text-xs font-bold uppercase tracking-wider text-red-400 hover:text-white flex items-center gap-2 rounded-lg transition-all shadow-[0_0_15px_rgba(200,16,46,0.2)]"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>LOGOUT</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {loading ? (

@@ -64,7 +64,13 @@ export function AuthProvider({ children }) {
         setUser(null);
         setRole("customer");
         setAuthCookie(false);
-        localStorage.removeItem("afterhours_user");
+        try {
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("afterhours_user");
+            localStorage.removeItem("afterhours_orders");
+            window.dispatchEvent(new Event("storage"));
+          }
+        } catch {}
       }
       setLoading(false);
     });
@@ -219,7 +225,16 @@ function generateDeterministicUuid(str) {
     } catch (e) {
       console.warn("Signout error:", e);
     }
-    localStorage.removeItem("afterhours_user");
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("afterhours_user");
+        localStorage.removeItem("afterhours_orders");
+        sessionStorage.clear();
+        window.dispatchEvent(new Event("storage"));
+      }
+    } catch (e) {
+      console.warn("Error clearing storage on logout:", e);
+    }
     setAuthCookie(false);
     setUser(null);
     setRole("customer");
