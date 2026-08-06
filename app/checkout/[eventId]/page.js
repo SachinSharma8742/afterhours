@@ -281,7 +281,7 @@ export default function CheckoutPage({ params }) {
                 <input
                   type="text"
                   required
-                  placeholder="John Doe"
+                  placeholder="Name"
                   value={attendeeName}
                   onChange={(e) => setAttendeeName(e.target.value)}
                   className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
