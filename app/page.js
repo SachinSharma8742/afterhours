@@ -50,31 +50,31 @@ export default function HomePage() {
       code: "01",
       title: "DJ NIGHT",
       desc: "Top DJs spinning the hottest tracks all night long.",
-      img: "/icons/dj-night.png?v=v2",
+      img: "/icons/dj-night.png?v=v3",
     },
     {
       code: "02",
       title: "LIVE MUSIC",
       desc: "Unplugged. Live. Unforgettable.",
-      img: "/icons/live-music.png?v=v2",
+      img: "/icons/live-music.png?v=v3",
     },
     {
       code: "03",
       title: "DANCE FLOOR",
       desc: "Non-stop energy all night long.",
-      img: "/icons/dance-floor.png?v=v2",
+      img: "/icons/dance-floor.png?v=v3",
     },
     {
       code: "04",
       title: "FOOD & DRINKS",
       desc: "Delicious bites & premium drinks.",
-      img: "/icons/food-drinks.png?v=v2",
+      img: "/icons/food-drinks.png?v=v3",
     },
     {
       code: "05",
       title: "PHOTO BOOTH",
       desc: "Capture moments, take memories.",
-      img: "/icons/photo-booth.png?v=v2",
+      img: "/icons/photo-booth.png?v=v3",
     },
   ];
 
