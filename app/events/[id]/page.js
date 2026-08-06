@@ -128,9 +128,12 @@ function renderDescription(text) {
 
 /* ── page ────────────────────────────────────────────── */
 
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+
 export default function EventDetailsPage({ params }) {
-  const resolvedParams = use(params);
-  const eventId = resolvedParams.id;
+  const resolvedParams = params && typeof params.then === "function" ? use(params) : params;
+  const eventId = resolvedParams?.id;
 
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);

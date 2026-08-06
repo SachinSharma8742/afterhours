@@ -17,9 +17,12 @@ import { formatCurrency } from "@/lib/utils/formatters";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@/lib/supabase/client";
 
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+
 export default function CheckoutPage({ params }) {
-  const resolvedParams = use(params);
-  const eventId = resolvedParams.eventId;
+  const resolvedParams = params && typeof params.then === "function" ? use(params) : params;
+  const eventId = resolvedParams?.eventId;
   const router = useRouter();
   const { toast } = useToast();
 
