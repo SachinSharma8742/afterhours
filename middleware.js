@@ -6,30 +6,40 @@ export async function middleware(request) {
     request,
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key";
+  let user = null;
+  const path = request.nextUrl.pathname;
 
-  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      getAll() {
-        return request.cookies.getAll();
-      },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        supabaseResponse = NextResponse.next({
-          request,
-        });
-        cookiesToSet.forEach(({ name, value, options }) =>
-          supabaseResponse.cookies.set(name, value, options)
-        );
-      },
-    },
-  });
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  const { data: { user } } = await supabase.auth.getUser();
+    if (supabaseUrl && supabaseAnonKey && !supabaseUrl.includes("placeholder")) {
+      const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+            supabaseResponse = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            );
+          },
+        },
+      });
+
+      const { data } = await supabase.auth.getUser();
+      user = data?.user || null;
+    }
+  } catch (err) {
+    console.warn("Middleware auth check warning:", err);
+  }
+
   const hasLocalAuth = request.cookies.get("afterhours_auth")?.value === "true";
   const isAuthenticated = !!user || hasLocalAuth;
-  const path = request.nextUrl.pathname;
 
   // 1. Protected Customer User Routes
   if ((path.startsWith("/dashboard") || path.startsWith("/checkout")) && !isAuthenticated) {
