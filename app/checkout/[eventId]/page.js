@@ -115,8 +115,8 @@ export default function CheckoutPage({ params }) {
 
   const handleInitiateRazorpay = async (e) => {
     e.preventDefault();
-    if (!attendeeName || !attendeeEmail) {
-      toast({ title: "Missing Information", description: "Please provide attendee name & email.", type: "error" });
+    if (!attendeeName?.trim()) {
+      toast({ title: "Missing Information", description: "Please provide attendee name.", type: "error" });
       return;
     }
 
@@ -276,39 +276,14 @@ export default function CheckoutPage({ params }) {
                 ATTENDEE DETAILS
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">FULL NAME *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="John Doe"
-                    value={attendeeName}
-                    onChange={(e) => setAttendeeName(e.target.value)}
-                    className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">EMAIL ADDRESS *</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="john@example.com"
-                    value={attendeeEmail}
-                    onChange={(e) => setAttendeeEmail(e.target.value)}
-                    className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
-
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">PHONE NUMBER</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">FULL NAME *</label>
                 <input
                   type="text"
-                  placeholder="+91 98765 43210"
-                  value={attendeePhone}
-                  onChange={(e) => setAttendeePhone(e.target.value)}
+                  required
+                  placeholder="John Doe"
+                  value={attendeeName}
+                  onChange={(e) => setAttendeeName(e.target.value)}
                   className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
                 />
               </div>
