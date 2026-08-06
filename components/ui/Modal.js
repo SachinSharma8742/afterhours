@@ -46,7 +46,7 @@ export default function Modal({ isOpen, onClose, title, children, className }) {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.3 }}
             className={cn(
-              "relative z-[100000] w-full max-w-xl bg-black border border-[#c8102e]/50 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden font-montserrat",
+              "relative z-[100000] w-full max-w-xl bg-black border border-[#c8102e]/50 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[90vh] font-montserrat",
               className
             )}
           >
