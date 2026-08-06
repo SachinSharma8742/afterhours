@@ -1,9 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Calendar, MapPin, Clock, Mail, ShieldCheck, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on internal portal pages
+  if (pathname?.startsWith("/portal-ops-x97")) return null;
+
   return (
     <footer className="w-full bg-black text-gray-400 relative overflow-hidden font-montserrat border-t border-gray-900">
       

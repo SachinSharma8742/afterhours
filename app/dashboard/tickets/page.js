@@ -144,6 +144,7 @@ export default function CustomerTicketsPage() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title="OFFICIAL EVENT PASS"
+          className="max-w-2xl p-4 sm:p-6 bg-black border-2 border-[#c8102e]"
         >
           {selectedTicket && (
             <TicketPassCard ticket={selectedTicket} event={{ title: selectedTicket.event_title || "AfterHours Event", venue_name: "Venue Gate" }} />

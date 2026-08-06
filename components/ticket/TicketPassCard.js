@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Download, QrCode, Calendar, MapPin, Ticket, ShieldCheck, Image as ImageIcon, AlertTriangle, XCircle } from "lucide-react";
-import Button from "../ui/Button";
-import Badge from "../ui/Badge";
+import { Download, Calendar, MapPin, Ticket, ShieldCheck, Image as ImageIcon, AlertTriangle, XCircle, User, CheckCircle2 } from "lucide-react";
 import { generateSignedQRPayload } from "../../lib/security/qr-crypto";
 import { downloadTicketPDF, downloadQRImage } from "../../lib/utils/pdf-generator";
 import { useToast } from "../../hooks/use-toast";
@@ -12,19 +10,19 @@ export default function TicketPassCard({ ticket, event }) {
   const [downloadingPDF, setDownloadingPDF] = useState(false);
   const [downloadingImage, setDownloadingImage] = useState(false);
 
-  const isUsed = ticket.status === "used" || ticket.status === "expired";
+  const isUsed = ticket?.status === "used" || ticket?.status === "expired";
 
-  // Always compute valid cryptographic HMAC payload — NEVER fall back to "DEMO"
+  // Always compute valid cryptographic HMAC payload
   const validQRPayload =
-    ticket.qr_code?.qr_payload ||
+    ticket?.qr_code?.qr_payload ||
     generateSignedQRPayload({
-      ticketId: ticket.id || ticket.ticket_number || `TCK-${Date.now()}`,
-      eventId: event?.id || ticket.event_id || "afterhours-event",
+      ticketId: ticket?.id || ticket?.ticket_number || `TCK-${Date.now()}`,
+      eventId: event?.id || ticket?.event_id || "afterhours-event",
     }).qrPayload;
 
   const qrImageUrl =
-    ticket.qr_code?.qr_image_url ||
-    `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(validQRPayload)}`;
+    ticket?.qr_code?.qr_image_url ||
+    `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(validQRPayload)}`;
 
   const handleDownloadPDF = async () => {
     setDownloadingPDF(true);
@@ -67,149 +65,158 @@ export default function TicketPassCard({ ticket, event }) {
   };
 
   return (
-    <div className={`rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl max-w-2xl mx-auto transition-all ${
-      isUsed ? "bg-rose-950/30 border-2 border-rose-600/80 shadow-[0_0_40px_rgba(225,29,72,0.4)]" : "bg-slate-900 border border-slate-800"
+    <div className={`rounded-3xl overflow-hidden border-2 transition-all font-montserrat ${
+      isUsed
+        ? "bg-black border-red-600/80 shadow-[0_0_40px_rgba(200,16,46,0.5)]"
+        : "bg-black border-[#c8102e] shadow-[0_0_40px_rgba(200,16,46,0.35)]"
     }`}>
       {/* Event Header Banner */}
-      <div className="relative h-44 w-full bg-slate-950">
+      <div className="relative h-44 w-full bg-[#0a0a0a]">
         <img
           src={event?.banner_url || "/images/event.jpeg"}
           alt="Event Header"
-          className="w-full h-full object-cover brightness-75"
+          className="w-full h-full object-cover brightness-65"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        
+        {/* Pass Status Badge */}
         <div className="absolute top-4 right-4">
           {isUsed ? (
-            <span className="px-3.5 py-1 rounded-full text-xs font-black bg-rose-600 text-white border border-rose-400 uppercase tracking-widest shadow-lg shadow-rose-950/90 animate-pulse flex items-center gap-1.5">
-              <XCircle className="w-4 h-4 text-white" /> 🔴 INVALID / EXPIRED (ENTERED)
+            <span className="px-3 py-1.5 rounded-full text-[10px] font-black bg-[#c8102e] text-white border border-red-400 uppercase tracking-widest shadow-lg animate-pulse flex items-center gap-1.5 font-mono">
+              <XCircle className="w-3.5 h-3.5 text-white" /> EXPIRED / ENTERED
             </span>
           ) : (
-            <Badge variant="violet">VALID PASS</Badge>
+            <span className="px-3 py-1.5 rounded-full text-[10px] font-black bg-[#0a200f] text-emerald-300 border border-emerald-600 uppercase tracking-widest shadow-lg flex items-center gap-1.5 font-mono">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> OFFICIAL GATE PASS
+            </span>
           )}
         </div>
-        <div className="absolute bottom-4 left-6 right-6">
-          <h3 className="text-xl font-bold text-white tracking-tight">{event?.title || "AfterHours VIP Event"}</h3>
+
+        {/* Event Title Header */}
+        <div className="absolute bottom-3 left-5 right-5">
+          <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#c8102e] font-mono">
+            AFTERHOURS PASS
+          </span>
+          <h3 className="font-bebas text-3xl sm:text-4xl text-white leading-none tracking-wider uppercase drop-shadow-md">
+            {event?.title || "AfterHours VIP Event"}
+          </h3>
         </div>
       </div>
 
-      {/* Pass Body */}
-      <div className="p-6 sm:p-8 flex flex-col gap-6">
-        {/* Date & Location */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-6 border-b border-slate-800/80 text-xs">
-          <div className="flex items-center gap-2 text-slate-300">
-            <Calendar className="w-4 h-4 text-violet-400 shrink-0" />
-            <span>{formatDate(event?.start_date || new Date())}</span>
+      {/* Pass Body Content */}
+      <div className="p-5 sm:p-7 flex flex-col gap-5 bg-black grid-lines-bg">
+        
+        {/* Date & Location Bar */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#0d0d0d] border border-[#22050b] text-xs font-mono">
+          <div className="flex items-center gap-2 text-gray-300">
+            <Calendar className="w-4 h-4 text-[#c8102e] shrink-0" />
+            <span className="font-semibold">{formatDate(event?.start_date || new Date())}</span>
           </div>
-          <div className="flex items-center gap-2 text-slate-300">
-            <MapPin className="w-4 h-4 text-fuchsia-400 shrink-0" />
-            <span className="truncate">{event?.venue_name || "Brooklyn Terminal"}, {event?.city || "New York"}</span>
+          <div className="flex items-center gap-2 text-gray-300">
+            <MapPin className="w-4 h-4 text-[#c8102e] shrink-0" />
+            <span className="truncate font-semibold">{event?.venue_name || "Jaipur Venue"}, {event?.city || "Jaipur"}</span>
           </div>
         </div>
 
-        {/* Safety / Expired Callout Box */}
+        {/* Safety Tip / Expired Callout */}
         {isUsed ? (
-          <div className="p-4.5 rounded-2xl bg-rose-950/90 border-2 border-rose-600 flex items-start gap-3 text-xs text-rose-100 shadow-xl">
-            <XCircle className="w-6 h-6 text-rose-400 shrink-0 mt-0.5 animate-pulse" />
-            <div className="flex flex-col gap-1">
-              <span className="font-extrabold text-sm text-rose-300 tracking-wide uppercase">
-                ⛔ ONE-TIME PASS INVALIDATED & ENTERED
+          <div className="p-4 rounded-xl bg-[#1a0006] border border-[#c8102e] flex items-start gap-3 text-xs text-rose-200">
+            <XCircle className="w-5 h-5 text-[#c8102e] shrink-0 mt-0.5" />
+            <div className="flex flex-col gap-0.5">
+              <span className="font-extrabold text-sm text-white uppercase tracking-wider">
+                ⛔ ENTRY ALREADY MARKED
               </span>
-              <p className="text-xs text-rose-200/90 leading-relaxed font-semibold">
-                This ticket pass was scanned and marked <strong>ENTERED</strong> at the venue entrance gate on <strong>{ticket.scanned_at ? new Date(ticket.scanned_at).toLocaleString() : "Gate Scanner"}</strong>. It is permanently <strong>EXPIRED & INVALID</strong> for one-time security protection.
+              <p className="text-[11px] text-gray-300 leading-relaxed">
+                Scanned on <strong>{ticket?.scanned_at ? new Date(ticket.scanned_at).toLocaleString() : "Gate Scanner"}</strong>. This one-time security pass is permanently invalidated.
               </p>
             </div>
           </div>
         ) : (
-          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-xs text-amber-200">
-            <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-            <div className="flex flex-col gap-0.5">
-              <span className="font-bold text-amber-300">Important Safety Tip:</span>
-              <p className="text-[11px] text-amber-200/90 leading-relaxed">
-                Please download both the <strong>PDF Pass</strong> and <strong>QR Image (PNG)</strong> to your device. Keep them saved offline so you can easily enter the venue even without mobile internet!
-              </p>
+          <div className="p-3.5 rounded-xl bg-[#0f0507] border border-[#c8102e]/40 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span className="text-[11px] font-bold text-gray-300 uppercase tracking-wider">Pass Type</span>
             </div>
+            <span className="px-3 py-1 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-[#c8102e] text-white border border-[#e01838] shadow-[0_0_15px_rgba(200,16,46,0.5)]">
+              {ticket?.ticket_type_name || "General Admission"}
+            </span>
           </div>
         )}
 
-        {/* Signed QR Code Display / Expired Stamp */}
-        <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-950 border border-slate-800 text-center gap-3">
+        {/* MAXIMIZED QR CODE CONTAINER */}
+        <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-[#070707] border-2 border-[#c8102e]/60 text-center gap-3 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
           {isUsed ? (
-            <div className="relative w-full p-8 rounded-2xl bg-rose-950/40 border-2 border-rose-600/80 flex flex-col items-center justify-center text-center gap-3 shadow-2xl">
-              <div className="w-20 h-20 rounded-full bg-rose-600/30 border-2 border-rose-500 flex items-center justify-center text-rose-400 shadow-inner">
-                <XCircle className="w-12 h-12 text-rose-500 animate-pulse" />
+            <div className="relative w-full py-10 px-6 rounded-xl bg-[#160002] border border-[#c8102e] flex flex-col items-center justify-center text-center gap-3">
+              <div className="w-16 h-16 rounded-full bg-[#6e0008] border-2 border-[#c8102e] flex items-center justify-center text-white shadow-lg">
+                <XCircle className="w-10 h-10 text-white animate-pulse" />
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-xl font-black text-rose-400 tracking-widest uppercase">
-                  ⛔ INVALID / ENTRY ALREADY MARKED
+                <span className="font-bebas text-2xl text-white tracking-widest uppercase">
+                  PASS INVALIDATED
                 </span>
-                <span className="text-xs font-mono text-rose-300/80">
-                  Checked In: {ticket.scanned_at ? new Date(ticket.scanned_at).toLocaleString() : "Gate Scanner #1"}
+                <span className="text-[11px] font-mono text-gray-400">
+                  Entry Recorded: {ticket?.scanned_at ? new Date(ticket.scanned_at).toLocaleString() : "Gate Scanner"}
                 </span>
               </div>
-              <span className="px-4 py-1.5 rounded-full text-xs font-mono font-black bg-rose-600 text-white uppercase tracking-widest border border-rose-400 shadow-md">
-                ONE-TIME USE EXPIRED
-              </span>
             </div>
           ) : (
-            <div className="relative p-3 rounded-2xl bg-white shadow-xl shadow-violet-950/40 overflow-hidden">
-              <img
-                src={qrImageUrl}
-                alt="Signed QR Pass"
-                className="w-48 h-48 object-contain"
-              />
+            <div className="w-full flex items-center justify-center">
+              {/* Ultra High-Contrast Max-Size QR Wrapper */}
+              <div className="relative w-full max-w-[340px] aspect-square p-3 sm:p-4 rounded-2xl bg-white shadow-[0_0_30px_rgba(255,255,255,0.25)] border-4 border-[#c8102e] flex items-center justify-center transition-all hover:scale-[1.01]">
+                <img
+                  src={qrImageUrl}
+                  alt="Official QR Pass"
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
           )}
 
-          <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+          <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider pt-1">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>{isUsed ? "Status: Checked In & Security Invalidated" : "HMAC-SHA256 Encrypted & Signed"}</span>
+            <span>{isUsed ? "Status: Checked In & Security Locked" : "Cryptographically Signed Gate Pass"}</span>
           </div>
         </div>
 
         {/* Ticket Metadata Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 text-xs">
+        <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#0d0d0d] border border-[#22050b] text-xs font-mono">
           <div>
-            <span className="text-slate-500 uppercase font-semibold text-[10px]">Attendee Name</span>
-            <p className="font-bold text-slate-100 mt-0.5">{ticket.attendee_name || "John Doe"}</p>
+            <span className="text-gray-500 uppercase font-bold text-[9px] tracking-wider flex items-center gap-1">
+              <User className="w-3 h-3 text-[#c8102e]" /> Attendee
+            </span>
+            <p className="font-extrabold text-white truncate mt-0.5 text-sm">{ticket?.attendee_name || "Guest Attendee"}</p>
           </div>
           <div>
-            <span className="text-slate-500 uppercase font-semibold text-[10px]">Ticket Number</span>
-            <p className="font-bold text-violet-400 font-mono mt-0.5">{ticket.ticket_number || "TCK-8890"}</p>
-          </div>
-          <div>
-            <span className="text-slate-500 uppercase font-semibold text-[10px]">Status</span>
-            <p className={`font-bold mt-0.5 ${ticket.status === "used" ? "text-rose-400" : "text-emerald-400"}`}>
-              {ticket.status === "used" ? "EXPIRED (USED)" : "VALID"}
-            </p>
+            <span className="text-gray-500 uppercase font-bold text-[9px] tracking-wider flex items-center gap-1">
+              <Ticket className="w-3 h-3 text-[#c8102e]" /> Ticket Code
+            </span>
+            <p className="font-extrabold text-[#c8102e] font-mono mt-0.5 text-sm truncate">{ticket?.ticket_number || "TCK-8890"}</p>
           </div>
         </div>
 
         {/* Download Action Buttons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <Button
-            variant="glow"
-            size="md"
-            isLoading={downloadingPDF}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <button
             onClick={handleDownloadPDF}
-            className="w-full"
+            disabled={downloadingPDF}
+            className="btn-sharp-red py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full disabled:opacity-50"
           >
             <Download className="w-4 h-4" />
-            Download PDF Pass
-          </Button>
+            <span>{downloadingPDF ? "COMPILING PDF..." : "DOWNLOAD PDF PASS"}</span>
+          </button>
 
-          <Button
-            variant="secondary"
-            size="md"
-            isLoading={downloadingImage}
+          <button
             onClick={handleDownloadQRImage}
-            className="w-full bg-slate-800 hover:bg-slate-700 text-white"
+            disabled={downloadingImage}
+            className="bg-black hover:bg-[#160002] border border-[#c8102e]/60 hover:border-[#c8102e] text-white py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full transition-colors disabled:opacity-50"
           >
-            <ImageIcon className="w-4 h-4 text-violet-400" />
-            Save QR Image (PNG)
-          </Button>
+            <ImageIcon className="w-4 h-4 text-[#c8102e]" />
+            <span>{downloadingImage ? "SAVING..." : "SAVE QR IMAGE (PNG)"}</span>
+          </button>
         </div>
       </div>
     </div>
   );
 }
+
 

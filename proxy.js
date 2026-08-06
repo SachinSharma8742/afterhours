@@ -49,21 +49,22 @@ export async function proxy(request) {
     return NextResponse.redirect(url);
   }
 
-  // 2. Intercept legacy public /organizer paths -> redirect to /403
-  if (path.startsWith("/organizer")) {
+  // 2. Intercept legacy public /organizer & /admin paths -> redirect to /403
+  if (path.startsWith("/organizer") || path.startsWith("/admin")) {
     const url = request.nextUrl.clone();
     url.pathname = "/403";
     return NextResponse.rewrite(url);
   }
 
-  // 3. Protected Internal Admin System Routes (/admin)
-  if (path.startsWith("/admin") && !path.startsWith("/admin/login")) {
+  // 3. Protected Obscure Internal Operations Routes (/portal-ops-x97)
+  if (path.startsWith("/portal-ops-x97") && !path.startsWith("/portal-ops-x97/login")) {
     const hasAdminAuth = request.cookies.get("afterhours_admin_auth")?.value === "true";
-    const isAdminUser = user && ["admin", "staff", "scanner", "organizer"].includes(user.user_metadata?.role);
+    const userRole = user?.user_metadata?.role;
+    const isAuthorizedRole = user && ["admin", "staff"].includes(userRole);
 
-    if (!hasAdminAuth && !isAdminUser) {
+    if (!hasAdminAuth && !isAuthorizedRole) {
       const url = request.nextUrl.clone();
-      url.pathname = "/admin/login";
+      url.pathname = "/portal-ops-x97/login";
       url.searchParams.set("redirect", path);
       return NextResponse.redirect(url);
     }
@@ -76,6 +77,7 @@ export const config = {
   matcher: [
     "/dashboard/:path*",
     "/admin/:path*",
+    "/portal-ops-x97/:path*",
     "/organizer/:path*",
     "/checkout/:path*",
   ],

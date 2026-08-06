@@ -76,19 +76,39 @@ export function AuthProvider({ children }) {
     const cleanEmail = email.trim().toLowerCase();
 
     // Built-in Staff / Admin Account Check
-    if (cleanEmail === "staff@afterhours.live" || cleanEmail === "admin@afterhours.live") {
-      if (password === "admin123" || password === "staff123") {
-        const staffUser = {
+    if (cleanEmail === "admin@afterhours.live") {
+      if (password === "admin123") {
+        const adminUser = {
           id: "usr-admin-01",
           email: cleanEmail,
-          user_metadata: { full_name: "Event Operations Staff", role: "admin" },
+          user_metadata: { full_name: "System Administrator", role: "admin" },
           role: "admin",
         };
-        setUser(staffUser);
+        setUser(adminUser);
         setRole("admin");
+        setAuthCookie(true);
+        localStorage.setItem("afterhours_user", JSON.stringify(adminUser));
+        return { success: true, user: adminUser };
+      } else {
+        throw new Error("Invalid password for Administrator account.");
+      }
+    }
+
+    if (cleanEmail === "staff@afterhours.live") {
+      if (password === "staff123") {
+        const staffUser = {
+          id: "usr-staff-01",
+          email: cleanEmail,
+          user_metadata: { full_name: "Event Operations Staff", role: "staff" },
+          role: "staff",
+        };
+        setUser(staffUser);
+        setRole("staff");
         setAuthCookie(true);
         localStorage.setItem("afterhours_user", JSON.stringify(staffUser));
         return { success: true, user: staffUser };
+      } else {
+        throw new Error("Invalid password for Staff account.");
       }
     }
 

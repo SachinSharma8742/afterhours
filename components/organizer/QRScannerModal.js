@@ -25,7 +25,6 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
   const [scanResult, setScanResult] = useState(null);
   const [scanHistory, setScanHistory] = useState([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [manualCode, setManualCode] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [cameraActive, setCameraActive] = useState(false);
 
@@ -68,14 +67,27 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
       await stopCamera();
     }
 
+    // Wait a tick for the DOM element to be ready after collapse/expand
+    await new Promise((r) => setTimeout(r, 80));
+
     try {
       const html5QrCode = new Html5Qrcode("qr-reader");
       html5QrCodeRef.current = html5QrCode;
 
       const config = {
-        fps: 20,
-        qrbox: { width: 260, height: 260 },
-        aspectRatio: 1.0,
+        fps: 30,
+        // qrbox as a function: 80% of the smaller dimension — scales perfectly on any device
+        qrbox: (viewfinderWidth, viewfinderHeight) => {
+          const minDim = Math.min(viewfinderWidth, viewfinderHeight);
+          const size = Math.floor(minDim * 0.8);
+          return { width: size, height: size };
+        },
+        // No aspectRatio constraint — let the camera fill naturally to avoid distortion
+        rememberLastUsedCamera: true,
+        // Enable native BarcodeDetector API for wide-angle, tilted & distant QR reading
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
       };
 
       await html5QrCode.start(
@@ -84,7 +96,7 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
         (decodedText) => {
           processScan(decodedText);
         },
-        () => {}
+        () => {} // suppress frame-level errors
       );
       setCameraActive(true);
     } catch (err) {
@@ -92,10 +104,17 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
       try {
         const devices = await Html5Qrcode.getCameras();
         if (devices && devices.length > 0) {
+          // Pick the last device — usually the rear/environment camera
           const cameraId = devices[devices.length - 1].id;
-          await html5QrCodeRef.current.start(
+          const html5QrCode = new Html5Qrcode("qr-reader");
+          html5QrCodeRef.current = html5QrCode;
+          await html5QrCode.start(
             cameraId,
-            { fps: 20, qrbox: { width: 260, height: 260 } },
+            {
+              fps: 30,
+              qrbox: (w, h) => { const s = Math.floor(Math.min(w, h) * 0.8); return { width: s, height: s }; },
+              experimentalFeatures: { useBarCodeDetectorIfSupported: true },
+            },
             (decodedText) => {
               processScan(decodedText);
             },
@@ -103,11 +122,11 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
           );
           setCameraActive(true);
         } else {
-          setCameraError("No camera devices detected. Use manual code verification below.");
+          setCameraError("No camera devices detected.");
         }
       } catch (fallbackErr) {
         console.error("Camera access error:", fallbackErr);
-        setCameraError(fallbackErr.message || "Camera permission denied or unsupported context.");
+        setCameraError(fallbackErr.message || "Camera permission denied or unavailable.");
       }
     }
   };
@@ -237,40 +256,34 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
     }
   };
 
-  const handleManualSubmit = (e) => {
-    e.preventDefault();
-    if (!manualCode.trim()) return;
-    processScan(manualCode.trim());
-    setManualCode("");
-  };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl">
-      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/90 backdrop-blur-xl">
+      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl overflow-hidden max-h-[95vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400">
-              <QrCode className="w-5 h-5" />
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-800 gap-2">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400 shrink-0">
+              <QrCode className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                Live Gate Ticket Scanner
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-violet-500/20 text-violet-300 border border-violet-500/40 flex items-center gap-1">
-                  <Zap className="w-3 h-3 text-amber-400 animate-pulse" /> 25 FPS Instant Auto-Fetch
+            <div className="min-w-0">
+              <h3 className="text-sm sm:text-lg font-bold text-white flex items-center gap-1.5 sm:gap-2 flex-wrap truncate">
+                Live Ticket Scanner
+                <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold bg-violet-500/20 text-violet-300 border border-violet-500/40 flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-amber-400 animate-pulse" /> Instant Scan
                 </span>
               </h3>
-              <div className="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
-                <span className="flex items-center gap-1">
+              <div className="flex items-center gap-2 text-[10px] sm:text-xs text-slate-400 mt-0.5">
+                <span>
                   {isOnline ? (
                     <span className="text-emerald-400 flex items-center gap-1 font-mono">
-                      <Wifi className="w-3.5 h-3.5" /> Online Mode
+                      <Wifi className="w-3 h-3" /> Online
                     </span>
                   ) : (
                     <span className="text-amber-400 flex items-center gap-1 font-mono">
-                      <WifiOff className="w-3.5 h-3.5" /> Offline Mode ({pendingScans.length} queued)
+                      <WifiOff className="w-3 h-3" /> Offline ({pendingScans.length})
                     </span>
                   )}
                 </span>
@@ -278,17 +291,17 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
               title="Toggle Audio Feedback"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <VolumeX className="w-4 h-4 text-slate-500" />}
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
@@ -296,17 +309,17 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
         </div>
 
         {/* Content Body Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-4 sm:pt-6 overflow-y-auto">
           {/* Left Column: UPI-Style Viewfinder */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 sm:gap-4">
             {!isSecureContext && (
-              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200 leading-relaxed">
-                ⚠️ <strong>iOS Safari Notice:</strong> Apple Safari blocks camera stream over unencrypted <code>http://</code> IPs. Access via <strong>https://</strong> or <strong>localhost</strong>, or use manual code entry.
+              <div className="p-2.5 sm:p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[10px] sm:text-[11px] text-amber-200 leading-relaxed">
+                ⚠️ <strong>iOS Safari Notice:</strong> Access via <strong>https://</strong> or <strong>localhost</strong> for camera stream.
               </div>
             )}
 
             {cameraError && (
-              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-200 flex flex-col gap-2">
+              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-200 flex flex-col gap-2">
                 <span>⚠️ {cameraError}</span>
                 <Button variant="secondary" size="sm" onClick={startCameraEngine} className="w-full">
                   Retry Camera Access
@@ -314,39 +327,28 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
               </div>
             )}
 
-            <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 p-2 min-h-[310px] flex items-center justify-center shadow-inner">
-              <div id="qr-reader" className="w-full text-slate-200" />
+            {/* Camera Viewfinder — collapses when camera is off after a scan */}
+            <div
+              className={`relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner transition-all duration-300 ${
+                cameraActive
+                  ? "min-h-[260px] sm:min-h-[320px]"
+                  : scanResult
+                  ? "h-0 border-0 overflow-hidden"
+                  : "min-h-[260px] sm:min-h-[320px] flex items-center justify-center"
+              }`}
+            >
+              {/* html5-qrcode mounts the <video> element here — no padding so it fills flush */}
+              <div id="qr-reader" className="w-full h-full" />
 
-              {/* UPI Style Animated Targeting Reticle & Laser */}
-              {cameraActive && !scanResult && (
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                  <div className="relative w-64 h-64 border-2 border-violet-500/40 rounded-2xl shadow-[0_0_25px_rgba(139,92,246,0.3)] overflow-hidden">
-                    {/* Glowing Laser Scan Line */}
-                    <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-fuchsia-400 to-transparent shadow-[0_0_15px_#d946ef] animate-[pulse_1.5s_infinite]" />
-                    
-                    {/* Target Corners */}
-                    <div className="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-violet-400 rounded-tl-lg" />
-                    <div className="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-violet-400 rounded-tr-lg" />
-                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-4 border-l-4 border-violet-400 rounded-bl-lg" />
-                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-violet-400 rounded-br-lg" />
-                  </div>
+              {/* Idle placeholder before camera starts */}
+              {!cameraActive && !scanResult && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-500">
+                  <Smartphone className="w-8 h-8 text-violet-500 animate-pulse" />
+                  <p className="text-xs font-semibold text-slate-400">Initialising camera...</p>
                 </div>
               )}
             </div>
 
-            {/* Manual Code Input Fallback */}
-            <form onSubmit={handleManualSubmit} className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Or paste QR payload / ticket code..."
-                value={manualCode}
-                onChange={(e) => setManualCode(e.target.value)}
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500"
-              />
-              <Button type="submit" variant="secondary" size="sm">
-                Verify
-              </Button>
-            </form>
           </div>
 
           {/* Right Column: Scan Result & History */}
@@ -407,18 +409,18 @@ export default function QRScannerModal({ isOpen, onClose, targetEventId = null }
 
                 {scanResult.data && (
                   <div className="pt-4 border-t border-white/15 text-xs flex flex-col gap-3 font-mono">
+                    {/* Pass Tier — full-width prominent badge so gate staff can see it instantly */}
+                    <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-400/40">
+                      <span className="text-[10px] text-amber-300 uppercase font-extrabold tracking-widest">Pass Type</span>
+                      <span className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-400/20 text-amber-200 border border-amber-400/50 shadow-sm">
+                        {scanResult.data.ticketType || "General Admission"}
+                      </span>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-black/40 border border-white/10">
                       <div>
                         <span className="text-[10px] text-slate-400 uppercase font-semibold">Attendee Name</span>
                         <p className="font-bold text-white text-sm mt-0.5">{scanResult.data.attendeeName}</p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-slate-400 uppercase font-semibold">Ticket Code</span>
-                        <p className="font-bold text-violet-400 text-sm font-mono mt-0.5">{scanResult.data.ticketNumber || scanResult.data.ticketId}</p>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-slate-400 uppercase font-semibold">Pass Tier</span>
-                        <p className="font-bold text-slate-200 mt-0.5">{scanResult.data.ticketType || "General Admission"}</p>
                       </div>
                       <div>
                         <span className="text-[10px] text-slate-400 uppercase font-semibold">Status / Time</span>
