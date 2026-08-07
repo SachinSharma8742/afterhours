@@ -62,85 +62,28 @@ export default function Navbar() {
             <Link href="/contact" className={navLinkClass("/contact")}>
               CONTACT US
             </Link>
-            {user && (
-              <Link href="/dashboard/tickets" className={navLinkClass("/dashboard/tickets")}>
-                MY PASSES
-              </Link>
-            )}
           </div>
 
           {/* Right Action Area */}
           <div className="flex items-center gap-3">
             {/* Desktop Action Buttons */}
             <div className="hidden md:flex items-center gap-3">
-              {user ? (
-                <div className="flex items-center gap-3">
-                  <Link
-                    href="/dashboard/tickets"
-                    className="w-10 h-10 bg-[#6e0008] border border-[#c8102e] rounded-full flex items-center justify-center text-white font-black text-sm hover:bg-[#c8102e] transition-colors shadow-[0_0_15px_rgba(255,13,57,0.4)]"
-                    title="My Passes"
-                  >
-                    {(user?.user_metadata?.full_name || user?.email || "U").charAt(0).toUpperCase()}
-                  </Link>
-                  <button
-                    onClick={logout}
-                    className="p-2 text-gray-400 hover:text-red-500 transition-colors rounded-lg hover:bg-white/5"
-                    title="Logout"
-                  >
-                    <LogOut className="w-5 h-5" />
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-3">
-                  <Link
-                    href="/login"
-                    className="p-2.5 bg-[#160002] border border-[#c8102e]/50 hover:border-[#c8102e] text-white hover:text-[#c8102e] transition-all rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(200,16,46,0.2)]"
-                    title="Login"
-                  >
-                    <User className="w-5 h-5" />
-                  </Link>
-                  <Link href="/events">
-                    <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
-                      <span className="relative z-10">BOOK TICKETS</span>
-                      <span className="grunge-arrow grunge-arrow--nav relative z-10">
-                        <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                      </span>
-                    </button>
-                  </Link>
-                </div>
-              )}
+              <a
+                href="https://go.allevents.in/sl6sa"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
+                  <span className="relative z-10">BUY PASSES</span>
+                  <span className="grunge-arrow grunge-arrow--nav relative z-10">
+                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </span>
+                </button>
+              </a>
             </div>
 
-            {/* Mobile Header Buttons (Login Icon before Hamburger Menu) */}
+            {/* Mobile Menu Toggle */}
             <div className="flex md:hidden items-center gap-2">
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="/dashboard/tickets"
-                    className="w-9 h-9 bg-[#6e0008] border border-[#c8102e] rounded-full flex items-center justify-center text-white font-black text-xs"
-                    title="My Passes"
-                  >
-                    {(user?.user_metadata?.full_name || user?.email || "U").charAt(0).toUpperCase()}
-                  </Link>
-                  <button
-                    onClick={logout}
-                    className="p-1.5 text-gray-400 hover:text-red-500 transition-colors rounded-lg hover:bg-white/5"
-                    title="Logout"
-                  >
-                    <LogOut className="w-5 h-5" />
-                  </button>
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="p-2 bg-[#160002] border border-[#c8102e]/50 text-white hover:text-[#c8102e] rounded-full flex items-center justify-center"
-                  title="Login"
-                >
-                  <User className="w-5 h-5" />
-                </Link>
-              )}
-
-              {/* Mobile Menu Toggle */}
               <button
                 className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-white/5"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -168,34 +111,18 @@ export default function Navbar() {
           <Link href="/contact" onClick={() => setMobileOpen(false)} className={pathname === "/contact" ? "text-[#c8102e]" : "text-gray-300"}>
             CONTACT US
           </Link>
-          {user ? (
-            <>
-              <Link href="/dashboard/tickets" onClick={() => setMobileOpen(false)} className="text-red-400 flex items-center justify-between py-1">
-                <span>MY PASSES</span>
-                <span className="text-[10px] bg-[#6e0008] border border-[#c8102e] px-2 py-0.5 text-white font-mono rounded">ACTIVE</span>
-              </Link>
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  logout();
-                }}
-                className="flex items-center gap-2 text-red-500 hover:text-red-400 py-2.5 border-t border-white/10 mt-1"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>LOGOUT ({user?.email?.split('@')[0] || "ACCOUNT"})</span>
-              </button>
-            </>
-          ) : (
-            <Link href="/login" onClick={() => setMobileOpen(false)} className="text-gray-300 flex items-center gap-2 py-1">
-              <User className="w-4 h-4 text-[#c8102e]" />
-              <span>LOGIN / SIGNUP</span>
-            </Link>
-          )}
-          <Link href="/events" onClick={() => setMobileOpen(false)} className="mt-2">
-            <button className="w-full py-3 bg-[#c8102e] text-[#ffffff] font-bold tracking-widest uppercase">
-              BOOK TICKETS NOW
+          <a
+            href="https://go.allevents.in/sl6sa"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            className="mt-2"
+          >
+            <button className="w-full py-3 bg-[#c8102e] text-[#ffffff] font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+              <span>BUY PASSES NOW</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
-          </Link>
+          </a>
         </div>
       )}
     </nav>

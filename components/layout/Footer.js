@@ -71,29 +71,33 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Customer Account */}
+          {/* Col 3: Official Tickets */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bebas text-xl text-white tracking-widest uppercase mb-1">
-              CUSTOMER PASSES
+              OFFICIAL TICKETS
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs font-bold uppercase tracking-wider">
               <li>
-                <Link href="/dashboard/tickets" className="hover:text-[#c8102e] transition-colors flex items-center justify-between group">
-                  <span>MY DIGITAL PASSES</span>
+                <a
+                  href="https://go.allevents.in/sl6sa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#c8102e] transition-colors flex items-center justify-between group"
+                >
+                  <span>BUY PASSES ON ALLEVENTS</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#c8102e]" />
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/login" className="hover:text-[#c8102e] transition-colors flex items-center justify-between group">
-                  <span>CUSTOMER LOGIN</span>
+                <a
+                  href="https://go.allevents.in/sl6sa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#c8102e] transition-colors flex items-center justify-between group"
+                >
+                  <span>GET EVENT PASS</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#c8102e]" />
-                </Link>
-              </li>
-              <li>
-                <Link href="/signup" className="hover:text-[#c8102e] transition-colors flex items-center justify-between group">
-                  <span>REGISTER ACCOUNT</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#c8102e]" />
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

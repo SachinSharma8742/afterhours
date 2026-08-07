@@ -160,14 +160,18 @@ export default function HomePage() {
 
           {/* Action CTA */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-6 sm:mt-16">
-            <Link href="/events">
-              <button className="flex items-center gap-2 px-8 py-3.5 text-sm font-black uppercase tracking-[0.2em] text-white bg-transparent border-2 border-white/40 hover:border-[#c8102e] hover:text-[#c8102e] transition-all duration-300 rounded-full backdrop-blur-sm hover:shadow-[0_0_25px_rgba(200,16,46,0.3)]">
-                <span>BOOK TICKETS NOW</span>
-                <span className="inline-flex items-center justify-center w-8 h-8 border-2 border-white/60 rounded-full ml-1 transition-colors group-hover:border-[#c8102e]">
+            <a
+              href="https://go.allevents.in/sl6sa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="flex items-center gap-2 px-8 py-3.5 text-sm font-black uppercase tracking-[0.2em] text-white bg-[#c8102e] border-2 border-[#c8102e] hover:bg-[#a80b24] hover:border-[#a80b24] transition-all duration-300 rounded-full shadow-[0_0_25px_rgba(200,16,46,0.5)]">
+                <span>BUY PASSES NOW</span>
+                <span className="inline-flex items-center justify-center w-8 h-8 border-2 border-white/60 rounded-full ml-1 transition-colors">
                   <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                 </span>
               </button>
-            </Link>
+            </a>
           </div>
 
         </div>
