@@ -84,16 +84,12 @@ export default function EventCard({ event, onWishlistToggle, isWishlisted = fals
           </span>
         </div>
 
-        <a
-          href="https://go.allevents.in/sl6sa"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Link href={`/events/${event.slug || event.id}`}>
           <button className="btn-sharp-red px-4 py-2 text-xs flex items-center gap-2">
             <span>GET PASS</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );

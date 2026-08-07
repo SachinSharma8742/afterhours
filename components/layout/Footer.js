@@ -71,33 +71,23 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Official Tickets */}
+          {/* Col 3: Official Event Links */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bebas text-xl text-white tracking-widest uppercase mb-1">
-              OFFICIAL TICKETS
+              OFFICIAL PASSES
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs font-bold uppercase tracking-wider">
               <li>
-                <a
-                  href="https://go.allevents.in/sl6sa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#c8102e] transition-colors flex items-center justify-between group"
-                >
-                  <span>BUY PASSES ON ALLEVENTS</span>
+                <Link href="/events/freshers-party-2026" className="hover:text-[#c8102e] transition-colors flex items-center justify-between group">
+                  <span>FRESHERS PARTY 2026</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#c8102e]" />
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://go.allevents.in/sl6sa"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#c8102e] transition-colors flex items-center justify-between group"
-                >
-                  <span>GET EVENT PASS</span>
+                <Link href="/events" className="hover:text-[#c8102e] transition-colors flex items-center justify-between group">
+                  <span>BROWSE ALL EVENTS</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#c8102e]" />
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

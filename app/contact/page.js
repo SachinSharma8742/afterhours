@@ -47,15 +47,25 @@ export default function ContactPage() {
               <Mail className="w-6 h-6 text-[#c8102e] shrink-0" />
               <div>
                 <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest block">EMAIL US</span>
-                <span className="text-sm font-bold text-white">support@afterhours.event</span>
+                <a href="mailto:afterhourss467@gmail.com" className="text-sm sm:text-base font-bold text-white hover:text-[#c8102e] transition-colors">
+                  afterhourss467@gmail.com
+                </a>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-5 bg-black border border-[#c8102e]/40 border-l-4 border-l-[#c8102e]">
               <Phone className="w-6 h-6 text-[#c8102e] shrink-0" />
-              <div>
-                <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest block">CALL SUPPORT</span>
-                <span className="text-sm font-bold text-white">+91 98765 43210</span>
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest block">CALL & WHATSAPP SUPPORT</span>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                  <a href="tel:+919116647082" className="text-sm sm:text-base font-bold text-white hover:text-[#c8102e] transition-colors">
+                    +91 91 166 470 82
+                  </a>
+                  <span className="hidden sm:inline text-gray-600">|</span>
+                  <a href="tel:+919950221881" className="text-sm sm:text-base font-bold text-white hover:text-[#c8102e] transition-colors">
+                    +91 99502 21881
+                  </a>
+                </div>
               </div>
             </div>
 

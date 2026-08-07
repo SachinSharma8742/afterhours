@@ -3,12 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/hooks/use-auth";
-import { ArrowRight, LogOut, Menu, X, User } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -66,20 +64,16 @@ export default function Navbar() {
 
           {/* Right Action Area */}
           <div className="flex items-center gap-3">
-            {/* Desktop Action Buttons */}
+            {/* Desktop Action Button */}
             <div className="hidden md:flex items-center gap-3">
-              <a
-                href="https://go.allevents.in/sl6sa"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href="/events">
                 <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
-                  <span className="relative z-10">BUY PASSES</span>
+                  <span className="relative z-10">BOOK TICKETS</span>
                   <span className="grunge-arrow grunge-arrow--nav relative z-10">
                     <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
                   </span>
                 </button>
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -111,18 +105,11 @@ export default function Navbar() {
           <Link href="/contact" onClick={() => setMobileOpen(false)} className={pathname === "/contact" ? "text-[#c8102e]" : "text-gray-300"}>
             CONTACT US
           </Link>
-          <a
-            href="https://go.allevents.in/sl6sa"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setMobileOpen(false)}
-            className="mt-2"
-          >
-            <button className="w-full py-3 bg-[#c8102e] text-[#ffffff] font-bold tracking-widest uppercase flex items-center justify-center gap-2">
-              <span>BUY PASSES NOW</span>
-              <ArrowRight className="w-4 h-4" />
+          <Link href="/events" onClick={() => setMobileOpen(false)} className="mt-2">
+            <button className="w-full py-3 bg-[#c8102e] text-[#ffffff] font-bold tracking-widest uppercase">
+              BOOK TICKETS NOW
             </button>
-          </a>
+          </Link>
         </div>
       )}
     </nav>
