@@ -124,9 +124,9 @@ INSERT INTO public.events (
 
 INSERT INTO public.ticket_types (id, event_id, name, description, price, quantity_total, quantity_sold, is_active)
 VALUES
-  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '11111111-1111-1111-1111-111111111111', '♂ Boys Pass', 'Valid entry pass for 1 male attendee (18+).', 999.00, 300, 0, true),
-  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111', '♀ Girls Pass', 'Valid entry pass for 1 female attendee (18+).', 299.00, 300, 0, true),
-  ('cccccccc-cccc-cccc-cccc-cccccccccccc', '11111111-1111-1111-1111-111111111111', '⚢ Couple Pass', 'Valid entry pass for 1 couple (18+).', 499.00, 200, 0, true)
+  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '11111111-1111-1111-1111-111111111111', '♂ Boys Pass', 'Valid entry pass for 1 male attendee (16+).', 999.00, 300, 0, true),
+  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111', '♀ Girls Pass', 'Valid entry pass for 1 female attendee (16+).', 299.00, 300, 0, true),
+  ('cccccccc-cccc-cccc-cccc-cccccccccccc', '11111111-1111-1111-1111-111111111111', '⚢ Couple Pass', 'Valid entry pass for 1 couple (16+).', 499.00, 200, 0, true)
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
 -- Enable RLS and select policy for coupon_codes

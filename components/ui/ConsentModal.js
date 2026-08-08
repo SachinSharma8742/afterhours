@@ -89,7 +89,7 @@ export default function ConsentModal({ isOpen, onClose, onAccept }) {
               <div>
                 <h4 className="font-bold text-white uppercase text-[10px] sm:text-[11px] text-[#c8102e]">1. Age Requirement</h4>
                 <ul className="list-disc list-inside mt-1 space-y-1 text-gray-300">
-                  <li>Entry is strictly restricted to individuals 18 years of age or older.</li>
+                  <li>Entry is strictly restricted to individuals 16 years of age or older.</li>
                   <li>A valid government-issued photo ID must be presented upon request.</li>
                 </ul>
               </div>
@@ -177,7 +177,7 @@ export default function ConsentModal({ isOpen, onClose, onAccept }) {
                   )}
                 </div>
                 <span className="text-[10px] sm:text-xs text-gray-300 font-medium group-hover:text-white transition-colors leading-snug">
-                  I confirm that I am 18+ years of age and accept all Freshers Party 2026 Terms & Conditions listed above.
+                  I confirm that I am 16+ years of age and accept all Freshers Party 2026 Terms & Conditions listed above.
                 </span>
               </label>
 

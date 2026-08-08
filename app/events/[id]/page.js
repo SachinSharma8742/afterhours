@@ -237,7 +237,7 @@ export default function EventDetailsPage({ params }) {
                 </span>
               )}
               <span className="px-3 py-1 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full text-gray-300 text-[10px] font-black uppercase tracking-widest">
-                18+ ONLY
+                16+ ONLY
               </span>
             </div>
 
@@ -398,7 +398,7 @@ export default function EventDetailsPage({ params }) {
                 <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest">
                   AGE LIMIT
                 </span>
-                <span className="text-sm font-black text-white">18+ ONLY</span>
+                <span className="text-sm font-black text-white">16+ ONLY</span>
               </div>
               <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#c8102e]/40 transition-colors">
                 <Shield className="w-5 h-5 text-[#c8102e]" />
