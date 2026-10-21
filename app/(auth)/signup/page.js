@@ -70,19 +70,21 @@ export default function CustomerSignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4 py-24 font-montserrat">
-      <div className="w-full max-w-md bg-[#0f0a0c] border border-[#c8102e]/30 rounded-2xl p-8 backdrop-blur-xl box-red-glow flex flex-col gap-6">
+    <div className="min-h-screen text-[#f7f1e5] flex items-center justify-center px-4 py-24 font-montserrat">
+      <div className="w-full max-w-md bg-[#161013] border border-[#e5c997]/20 rounded-xl p-8 shadow-sm flex flex-col gap-6">
         
         {/* Header */}
         <div className="text-center flex flex-col items-center gap-2">
-          <div className="w-12 h-12 rounded-xl bg-[#6e0008] border border-[#c8102e] flex items-center justify-center text-white shadow-[0_0_15px_rgba(255,13,57,0.4)]">
-            <Ticket className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-black border border-[#c8102e]/40 text-[10px] font-bold text-[#c8102e] uppercase tracking-widest mt-1">
+          <img
+            src="/images/logo.png?v=afterhours-v5"
+            alt="AfterHours Brand"
+            className="w-18 h-18 rounded-xl object-cover border border-[#e5c997]/40 shadow-sm"
+          />
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#20151a] border border-[#e5c997]/25 text-[10px] font-semibold text-[#e5c997] uppercase tracking-wider mt-1">
             <UserCheck className="w-3.5 h-3.5" /> ATTENDEE REGISTRATION
           </div>
-          <h2 className="font-bebas text-3xl text-white tracking-wider uppercase mt-1">CREATE ACCOUNT</h2>
-          <p className="text-xs text-gray-400">Join AfterHours to discover events & reserve passes</p>
+          <h2 className="font-bebas text-3xl text-[#f7f1e5] tracking-wider uppercase mt-1">CREATE ACCOUNT</h2>
+          <p className="text-xs text-[#9c8e82]">Join AfterHours to discover events & reserve passes</p>
         </div>
 
         {/* Google Signup */}
@@ -90,7 +92,7 @@ export default function CustomerSignupPage() {
           type="button"
           onClick={handleGoogleSignup}
           disabled={isGoogleLoading}
-          className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-black hover:bg-gray-900 border border-gray-800 text-white font-bold text-xs uppercase tracking-wider transition-colors disabled:opacity-50"
+          className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-lg bg-[#0e0a0c] hover:bg-[#1a1216] border border-[#e5c997]/20 text-[#f7f1e5] font-semibold text-xs uppercase tracking-wider transition-colors disabled:opacity-50"
         >
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
             <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z" />
@@ -104,64 +106,64 @@ export default function CustomerSignupPage() {
         {/* Divider */}
         <div className="relative flex items-center justify-center my-1">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-900" />
+            <div className="w-full border-t border-[#e5c997]/15" />
           </div>
-          <div className="relative bg-[#0f0a0c] px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+          <div className="relative bg-[#161013] px-3 text-[10px] font-semibold text-[#9c8e82] uppercase tracking-wider">
             OR REGISTER WITH EMAIL
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">FULL NAME</label>
+            <label className="text-[10px] font-semibold uppercase tracking-wider text-[#9c8e82]">FULL NAME</label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Alex Rivera"
-              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0a0c] border border-[#e5c997]/20 focus:border-[#e5c997] text-xs text-[#f7f1e5] placeholder-gray-600 focus:outline-none transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">EMAIL ADDRESS</label>
+            <label className="text-[10px] font-semibold uppercase tracking-wider text-[#9c8e82]">EMAIL ADDRESS</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0a0c] border border-[#e5c997]/20 focus:border-[#e5c997] text-xs text-[#f7f1e5] placeholder-gray-600 focus:outline-none transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">PASSWORD</label>
+            <label className="text-[10px] font-semibold uppercase tracking-wider text-[#9c8e82]">PASSWORD</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 focus:border-[#c8102e] text-xs text-white placeholder-gray-600 focus:outline-none transition-colors"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0a0c] border border-[#e5c997]/20 focus:border-[#e5c997] text-xs text-[#f7f1e5] placeholder-gray-600 focus:outline-none transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-brush-red py-4 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center justify-center gap-2 mt-2"
+            className="btn-gold-luxury py-3 text-xs flex items-center justify-center gap-2 mt-2 w-full"
           >
             <span>{isLoading ? "CREATING..." : "CREATE ACCOUNT"}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </button>
         </form>
 
-        <div className="pt-4 border-t border-gray-900 flex flex-col gap-2 text-center text-xs text-gray-400">
+        <div className="pt-4 border-t border-[#e5c997]/15 flex flex-col gap-2 text-center text-xs text-gray-400">
           <p>
             Already have an account?{" "}
-            <Link href="/login" className="text-[#c8102e] font-bold hover:underline">
+            <Link href="/login" className="text-[#e5c997] font-bold hover:underline">
               Sign In
             </Link>
           </p>

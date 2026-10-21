@@ -67,8 +67,8 @@ export default function TicketPassCard({ ticket, event }) {
   return (
     <div className={`rounded-3xl overflow-hidden border-2 transition-all font-montserrat ${
       isUsed
-        ? "bg-black border-red-600/80 shadow-[0_0_40px_rgba(200,16,46,0.5)]"
-        : "bg-black border-[#c8102e] shadow-[0_0_40px_rgba(200,16,46,0.35)]"
+        ? "bg-black border-red-600/80 shadow-[0_0_40px_rgba(90, 24, 38,0.5)]"
+        : "bg-black border-[#5a1826] shadow-[0_0_40px_rgba(90, 24, 38,0.35)]"
     }`}>
       {/* Event Header Banner */}
       <div className="relative h-44 w-full bg-[#0a0a0a]">
@@ -82,7 +82,7 @@ export default function TicketPassCard({ ticket, event }) {
         {/* Pass Status Badge */}
         <div className="absolute top-4 right-4">
           {isUsed ? (
-            <span className="px-3 py-1.5 rounded-full text-[10px] font-black bg-[#c8102e] text-white border border-red-400 uppercase tracking-widest shadow-lg animate-pulse flex items-center gap-1.5 font-mono">
+            <span className="px-3 py-1.5 rounded-full text-[10px] font-black bg-[#5a1826] text-white border border-red-400 uppercase tracking-widest shadow-lg animate-pulse flex items-center gap-1.5 font-mono">
               <XCircle className="w-3.5 h-3.5 text-white" /> EXPIRED / ENTERED
             </span>
           ) : (
@@ -94,7 +94,7 @@ export default function TicketPassCard({ ticket, event }) {
 
         {/* Event Title Header */}
         <div className="absolute bottom-3 left-5 right-5">
-          <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#c8102e] font-mono">
+          <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#5a1826] font-mono">
             AFTERHOURS PASS
           </span>
           <h3 className="font-bebas text-3xl sm:text-4xl text-white leading-none tracking-wider uppercase drop-shadow-md">
@@ -109,19 +109,19 @@ export default function TicketPassCard({ ticket, event }) {
         {/* Date & Location Bar */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#0d0d0d] border border-[#22050b] text-xs font-mono">
           <div className="flex items-center gap-2 text-gray-300">
-            <Calendar className="w-4 h-4 text-[#c8102e] shrink-0" />
+            <Calendar className="w-4 h-4 text-[#5a1826] shrink-0" />
             <span className="font-semibold">{formatDate(event?.start_date || new Date())}</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300">
-            <MapPin className="w-4 h-4 text-[#c8102e] shrink-0" />
+            <MapPin className="w-4 h-4 text-[#5a1826] shrink-0" />
             <span className="truncate font-semibold">{event?.venue_name || "Jaipur Venue"}, {event?.city || "Jaipur"}</span>
           </div>
         </div>
 
         {/* Safety Tip / Expired Callout */}
         {isUsed ? (
-          <div className="p-4 rounded-xl bg-[#1a0006] border border-[#c8102e] flex items-start gap-3 text-xs text-rose-200">
-            <XCircle className="w-5 h-5 text-[#c8102e] shrink-0 mt-0.5" />
+          <div className="p-4 rounded-xl bg-[#1a0006] border border-[#5a1826] flex items-start gap-3 text-xs text-rose-200">
+            <XCircle className="w-5 h-5 text-[#5a1826] shrink-0 mt-0.5" />
             <div className="flex flex-col gap-0.5">
               <span className="font-extrabold text-sm text-white uppercase tracking-wider">
                 ⛔ ENTRY ALREADY MARKED
@@ -132,22 +132,22 @@ export default function TicketPassCard({ ticket, event }) {
             </div>
           </div>
         ) : (
-          <div className="p-3.5 rounded-xl bg-[#0f0507] border border-[#c8102e]/40 flex items-center justify-between text-xs">
+          <div className="p-3.5 rounded-xl bg-[#0f0507] border border-[#5a1826]/40 flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
               <span className="text-[11px] font-bold text-gray-300 uppercase tracking-wider">Pass Type</span>
             </div>
-            <span className="px-3 py-1 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-[#c8102e] text-white border border-[#e01838] shadow-[0_0_15px_rgba(200,16,46,0.5)]">
+            <span className="px-3 py-1 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-[#5a1826] text-white border border-[#7a2234] shadow-[0_0_15px_rgba(90, 24, 38,0.5)]">
               {ticket?.ticket_type_name || "General Admission"}
             </span>
           </div>
         )}
 
         {/* MAXIMIZED QR CODE CONTAINER */}
-        <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-[#070707] border-2 border-[#c8102e]/60 text-center gap-3 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+        <div className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-[#070707] border-2 border-[#5a1826]/60 text-center gap-3 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
           {isUsed ? (
-            <div className="relative w-full py-10 px-6 rounded-xl bg-[#160002] border border-[#c8102e] flex flex-col items-center justify-center text-center gap-3">
-              <div className="w-16 h-16 rounded-full bg-[#6e0008] border-2 border-[#c8102e] flex items-center justify-center text-white shadow-lg">
+            <div className="relative w-full py-10 px-6 rounded-xl bg-[#160002] border border-[#5a1826] flex flex-col items-center justify-center text-center gap-3">
+              <div className="w-16 h-16 rounded-full bg-[#6e0008] border-2 border-[#5a1826] flex items-center justify-center text-white shadow-lg">
                 <XCircle className="w-10 h-10 text-white animate-pulse" />
               </div>
               <div className="flex flex-col gap-1">
@@ -162,7 +162,7 @@ export default function TicketPassCard({ ticket, event }) {
           ) : (
             <div className="w-full flex items-center justify-center">
               {/* Ultra High-Contrast Max-Size QR Wrapper */}
-              <div className="relative w-full max-w-[340px] aspect-square p-3 sm:p-4 rounded-2xl bg-white shadow-[0_0_30px_rgba(255,255,255,0.25)] border-4 border-[#c8102e] flex items-center justify-center transition-all hover:scale-[1.01]">
+              <div className="relative w-full max-w-[340px] aspect-square p-3 sm:p-4 rounded-2xl bg-white shadow-[0_0_30px_rgba(255,255,255,0.25)] border-4 border-[#5a1826] flex items-center justify-center transition-all hover:scale-[1.01]">
                 <img
                   src={qrImageUrl}
                   alt="Official QR Pass"
@@ -182,15 +182,15 @@ export default function TicketPassCard({ ticket, event }) {
         <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#0d0d0d] border border-[#22050b] text-xs font-mono">
           <div>
             <span className="text-gray-500 uppercase font-bold text-[9px] tracking-wider flex items-center gap-1">
-              <User className="w-3 h-3 text-[#c8102e]" /> Attendee
+              <User className="w-3 h-3 text-[#5a1826]" /> Attendee
             </span>
             <p className="font-extrabold text-white truncate mt-0.5 text-sm">{ticket?.attendee_name || "Guest Attendee"}</p>
           </div>
           <div>
-            <span className="text-gray-500 uppercase font-bold text-[9px] tracking-wider flex items-center gap-1">
-              <Ticket className="w-3 h-3 text-[#c8102e]" /> Ticket Code
+            <span className="text-gray-400 uppercase font-bold text-[9px] tracking-wider flex items-center gap-1">
+              <Ticket className="w-3 h-3 text-[#e5c997]" /> Ticket Code
             </span>
-            <p className="font-extrabold text-[#c8102e] font-mono mt-0.5 text-sm truncate">{ticket?.ticket_number || "TCK-8890"}</p>
+            <p className="font-extrabold text-[#e5c997] font-mono mt-0.5 text-sm truncate">{ticket?.ticket_number || "TCK-8890"}</p>
           </div>
         </div>
 
@@ -199,7 +199,7 @@ export default function TicketPassCard({ ticket, event }) {
           <button
             onClick={handleDownloadPDF}
             disabled={downloadingPDF}
-            className="btn-sharp-red py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full disabled:opacity-50"
+            className="btn-gold-luxury py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full disabled:opacity-50"
           >
             <Download className="w-4 h-4" />
             <span>{downloadingPDF ? "COMPILING PDF..." : "DOWNLOAD PDF PASS"}</span>
@@ -208,9 +208,9 @@ export default function TicketPassCard({ ticket, event }) {
           <button
             onClick={handleDownloadQRImage}
             disabled={downloadingImage}
-            className="bg-black hover:bg-[#160002] border border-[#c8102e]/60 hover:border-[#c8102e] text-white py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full transition-colors disabled:opacity-50"
+            className="bg-[#120408]/80 hover:bg-[#1e070e] border border-[#e5c997]/40 hover:border-[#e5c997] text-[#e5c997] rounded-xl py-3.5 px-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 w-full transition-all disabled:opacity-50"
           >
-            <ImageIcon className="w-4 h-4 text-[#c8102e]" />
+            <ImageIcon className="w-4 h-4 text-[#e5c997]" />
             <span>{downloadingImage ? "SAVING..." : "SAVE QR IMAGE (PNG)"}</span>
           </button>
         </div>

@@ -5,15 +5,15 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
 export const metadata = {
-  title: "AfterHours | The Night You Won't Forget — Aug 16, 2026",
+  title: "AfterHours | The Night You Won't Forget — Nov 4, 2026",
   description: "AfterHours — premium nightlife event in Jaipur, Rajasthan. DJ nights, live music, dance floor, food & drinks. Book your tickets now.",
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png?v=afterhours-v5", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png?v=afterhours-v5", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico?v=afterhours-v5", sizes: "any" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=afterhours-v5", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
 };

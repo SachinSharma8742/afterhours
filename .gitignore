@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# agent & dev tools
+.agents/
+.gemini/
+scratch/
+
+# user root image uploads & scratch assets
+image.png
+image copy*.png
+old-*.png
+test-*.png
+*.tmp

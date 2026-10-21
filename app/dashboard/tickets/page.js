@@ -49,14 +49,21 @@ export default function CustomerTicketsPage() {
         
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 text-center sm:text-left">
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.35em] text-[#c8102e]">// MY ACCOUNT</span>
-            <h1 className="font-bebas text-4xl sm:text-6xl tracking-wider uppercase text-white">
-              MY DIGITAL <span className="text-[#c8102e] red-text-glow">EVENT PASSES</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-400 font-medium">
-              View, download, or present your digital QR pass at venue entry gates.
-            </p>
+          <div className="flex items-center gap-4">
+            <img
+              src="/images/logo.png?v=afterhours-v5"
+              alt="AfterHours Brand"
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-[#ebd7b2]/60 shadow-[0_0_20px_rgba(88,24,38,0.9)] shrink-0 hidden sm:block"
+            />
+            <div className="flex flex-col gap-1">
+              <span className="text-xs font-black uppercase tracking-[0.35em] text-[#5a1826]">// MY ACCOUNT</span>
+              <h1 className="font-bebas text-4xl sm:text-6xl tracking-wider uppercase text-white">
+                MY DIGITAL <span className="text-[#5a1826] red-text-glow">EVENT PASSES</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-400 font-medium">
+                View, download, or present your digital QR pass at venue entry gates.
+              </p>
+            </div>
           </div>
           {user && (
             <div className="flex items-center justify-center sm:justify-end gap-3 self-center sm:self-auto shrink-0">
@@ -66,7 +73,7 @@ export default function CustomerTicketsPage() {
               </div>
               <button
                 onClick={logout}
-                className="px-4 py-2 bg-[#160002] border border-[#c8102e]/50 hover:border-[#c8102e] text-xs font-bold uppercase tracking-wider text-red-400 hover:text-white flex items-center gap-2 rounded-lg transition-all shadow-[0_0_15px_rgba(200,16,46,0.2)]"
+                className="px-4 py-2 bg-[#160002] border border-[#5a1826]/50 hover:border-[#5a1826] text-xs font-bold uppercase tracking-wider text-red-400 hover:text-white flex items-center gap-2 rounded-lg transition-all shadow-[0_0_15px_rgba(90, 24, 38,0.2)]"
               >
                 <LogOut className="w-4 h-4" />
                 <span>LOGOUT</span>
@@ -76,7 +83,7 @@ export default function CustomerTicketsPage() {
         </div>
 
         {loading ? (
-          <div className="p-16 text-center text-gray-400 text-xs font-black uppercase tracking-widest bg-black border border-[#c8102e]/30">
+          <div className="p-16 text-center text-gray-400 text-xs font-black uppercase tracking-widest bg-black border border-[#5a1826]/30">
             LOADING YOUR PASSES...
           </div>
         ) : tickets.length > 0 ? (
@@ -86,18 +93,18 @@ export default function CustomerTicketsPage() {
               return (
                 <div
                   key={t.id}
-                  className={`sharp-card p-6 flex flex-col gap-4 border-t-2 border-t-[#c8102e] ${
-                    isUsed ? "bg-[#160002] border-2 border-[#c8102e]" : ""
+                  className={`sharp-card p-6 flex flex-col gap-4 border-t-2 border-t-[#5a1826] ${
+                    isUsed ? "bg-[#160002] border-2 border-[#5a1826]" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-black text-[#c8102e] uppercase tracking-wider">
+                    <span className="text-xs font-mono font-black text-[#5a1826] uppercase tracking-wider">
                       {t.ticket_number}
                     </span>
                     <span
                       className={`px-3 py-1 text-[10px] font-black font-mono tracking-wider uppercase border ${
                         isUsed
-                          ? "bg-[#c8102e] text-white border-red-400 animate-pulse"
+                          ? "bg-[#5a1826] text-white border-red-400 animate-pulse"
                           : "bg-[#0a200f] text-emerald-300 border-emerald-800"
                       }`}
                     >
@@ -107,7 +114,7 @@ export default function CustomerTicketsPage() {
 
                   <div className="flex items-center gap-3">
                     <div className={`w-12 h-12 flex items-center justify-center shrink-0 border ${
-                      isUsed ? "bg-[#c8102e] text-white border-[#c8102e]" : "bg-[#6e0008] text-[#c8102e] border-[#c8102e]"
+                      isUsed ? "bg-[#5a1826] text-white border-[#5a1826]" : "bg-[#6e0008] text-[#5a1826] border-[#5a1826]"
                     }`}>
                       <Ticket className="w-6 h-6 text-white" />
                     </div>
@@ -119,7 +126,7 @@ export default function CustomerTicketsPage() {
 
                   {t.attendee_name && (
                     <div className="p-3 bg-black border border-gray-900 text-xs flex justify-between text-gray-300 font-mono">
-                      <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-[#c8102e]" /> Holder: {t.attendee_name}</span>
+                      <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-[#5a1826]" /> Holder: {t.attendee_name}</span>
                     </div>
                   )}
 
@@ -137,8 +144,8 @@ export default function CustomerTicketsPage() {
             })}
           </div>
         ) : (
-          <div className="p-16 bg-black border border-[#c8102e]/40 text-center flex flex-col items-center gap-4 box-red-glow">
-            <div className="w-16 h-16 bg-[#6e0008] border border-[#c8102e] flex items-center justify-center text-[#c8102e]">
+          <div className="p-16 bg-black border border-[#5a1826]/40 text-center flex flex-col items-center gap-4 box-red-glow">
+            <div className="w-16 h-16 bg-[#6e0008] border border-[#5a1826] flex items-center justify-center text-[#5a1826]">
               <Ticket className="w-8 h-8 text-white" />
             </div>
             <div className="flex flex-col gap-1 max-w-md">
@@ -161,7 +168,7 @@ export default function CustomerTicketsPage() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title="OFFICIAL EVENT PASS"
-          className="max-w-2xl p-4 sm:p-6 bg-black border-2 border-[#c8102e]"
+          className="max-w-2xl p-4 sm:p-6 bg-black border-2 border-[#5a1826]"
         >
           {selectedTicket && (
             <TicketPassCard ticket={selectedTicket} event={{ title: selectedTicket.event_title || "AfterHours Event", venue_name: "Venue Gate" }} />

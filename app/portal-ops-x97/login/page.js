@@ -77,11 +77,13 @@ function AdminLoginForm() {
   return (
     <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-8 backdrop-blur-xl shadow-2xl flex flex-col gap-6">
       <div className="text-center flex flex-col items-center gap-2">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-lg">
-          <ShieldCheck className="w-6 h-6" />
-        </div>
+        <img
+          src="/images/logo.png?v=afterhours-v5"
+          alt="AfterHours Official Logo"
+          className="w-16 h-16 rounded-2xl object-cover border-2 border-[#ebd7b2]/60 shadow-[0_0_20px_rgba(88,24,38,0.9)] mb-1"
+        />
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold text-emerald-300 mt-1">
-          INTERNAL OPERATIONS PORTAL
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> INTERNAL OPERATIONS PORTAL
         </div>
         <h2 className="text-2xl font-bold text-white mt-1">Authorized Staff Sign-In</h2>
         <p className="text-xs text-slate-400">Restricted access portal for event operations & admin staff</p>

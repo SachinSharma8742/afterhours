@@ -20,34 +20,51 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = (path) =>
-    `transition-all py-1.5 px-3 hover:text-[#c8102e] tracking-[0.15em] font-bold rounded-lg ${
+    `transition-colors py-1.5 px-3.5 tracking-[0.16em] font-medium text-xs rounded-md ${
       pathname === path
-        ? "text-[#c8102e] bg-[#1a0006]"
-        : "text-gray-300 hover:bg-white/5"
+        ? "text-[#e5c997] bg-[#20151a] border border-[#e5c997]/25"
+        : "text-[#d8cdbe] hover:text-[#e5c997] hover:bg-white/5"
     }`;
+
+  const isHomePage = pathname === "/";
+  const shouldHideAtTop = isHomePage && !scrolled && !mobileOpen;
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        shouldHideAtTop
+          ? "-translate-y-full opacity-0 pointer-events-none"
+          : "translate-y-0 opacity-100 pointer-events-auto"
+      } ${
         scrolled
-          ? "bg-black/95 border-b border-[#c8102e]/40 shadow-[0_4px_30px_rgba(255,13,57,0.2)]"
-          : "bg-black/90 border-b border-white/10 py-1"
+          ? "bg-[#0e0a0c]/95 border-b border-[#e5c997]/15 shadow-sm backdrop-blur-md"
+          : "bg-[#0e0a0c]/85 border-b border-[#e5c997]/10 py-1 backdrop-blur-md"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <img
-              src="/logo.png"
-              alt="AfterHours Logo"
-              className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            />
+          {/* Official Brand Logo */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="relative">
+              <img
+                src="/images/logo.png?v=afterhours-v5"
+                alt="AfterHours Official Logo"
+                className="h-12 sm:h-13 w-12 sm:w-13 object-cover rounded-xl border border-[#e5c997]/50 shadow-sm transition-transform duration-200 group-hover:scale-102"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif text-xl sm:text-2xl tracking-[0.2em] text-[#e5c997] font-bold leading-none">
+                AFTER HOURS
+              </span>
+              <span className="text-[8.5px] font-mono font-semibold uppercase tracking-[0.28em] text-[#9c8e82] mt-1">
+                JAIPUR • 04 NOV 2026
+              </span>
+            </div>
           </Link>
 
           {/* Links - Centered */}
-          <div className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-widest absolute left-1/2 -translate-x-1/2">
+          <div className="hidden lg:flex items-center gap-6 text-xs uppercase tracking-widest absolute left-1/2 -translate-x-1/2">
             <Link href="/" className={navLinkClass("/")}>
               HOME
             </Link>
@@ -67,11 +84,9 @@ export default function Navbar() {
             {/* Desktop Action Button */}
             <div className="hidden md:flex items-center gap-3">
               <Link href="/events">
-                <button className="btn-red-grunge btn-red-grunge--nav flex items-center gap-1.5 px-6 py-2.5 text-xs">
-                  <span className="relative z-10">BOOK TICKETS</span>
-                  <span className="grunge-arrow grunge-arrow--nav relative z-10">
-                    <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  </span>
+                <button className="btn-gold-luxury btn-gold-luxury--nav flex items-center gap-1.5 px-5 py-2 text-xs">
+                  <span>BOOK TICKETS</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </button>
               </Link>
             </div>
@@ -79,7 +94,7 @@ export default function Navbar() {
             {/* Mobile Menu Toggle */}
             <div className="flex md:hidden items-center gap-2">
               <button
-                className="p-2 text-gray-300 hover:text-white rounded-lg hover:bg-white/5"
+                className="p-2 text-[#e5c997] hover:text-white rounded-lg hover:bg-white/5"
                 onClick={() => setMobileOpen(!mobileOpen)}
               >
                 {mobileOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
@@ -92,21 +107,37 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden bg-black border-b border-[#c8102e]/40 px-6 py-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-widest">
-          <Link href="/" onClick={() => setMobileOpen(false)} className={pathname === "/" ? "text-[#c8102e]" : "text-gray-300"}>
+        <div className="lg:hidden bg-[#070204]/95 backdrop-blur-2xl border-b border-[#e5c997]/30 px-6 py-6 flex flex-col gap-4 text-xs font-bold uppercase tracking-widest shadow-[0_15px_40px_rgba(0,0,0,0.9)]">
+          {/* Mobile Drawer Brand Header */}
+          <div className="flex items-center gap-3.5 pb-4 border-b border-white/10 mb-2">
+            <img
+              src="/images/logo.png?v=afterhours-v5"
+              alt="AfterHours Official Logo"
+              className="h-12 w-12 object-cover rounded-2xl border-2 border-[#e5c997]/70 shadow-[0_0_15px_rgba(229,201,151,0.3)]"
+            />
+            <div className="flex flex-col">
+              <span className="font-serif text-xl tracking-[0.2em] text-[#e5c997] font-black leading-none">
+                AFTER HOURS
+              </span>
+              <span className="text-[8.5px] font-mono font-bold uppercase tracking-[0.25em] text-[#e5c997]/80 mt-1">
+                JAIPUR OFFICIAL
+              </span>
+            </div>
+          </div>
+          <Link href="/" onClick={() => setMobileOpen(false)} className={pathname === "/" ? "text-[#e5c997]" : "text-gray-300"}>
             HOME
           </Link>
-          <Link href="/events" onClick={() => setMobileOpen(false)} className={pathname === "/events" ? "text-[#c8102e]" : "text-gray-300"}>
+          <Link href="/events" onClick={() => setMobileOpen(false)} className={pathname === "/events" ? "text-[#e5c997]" : "text-gray-300"}>
             EVENTS
           </Link>
-          <Link href="/about" onClick={() => setMobileOpen(false)} className={pathname === "/about" ? "text-[#c8102e]" : "text-gray-300"}>
+          <Link href="/about" onClick={() => setMobileOpen(false)} className={pathname === "/about" ? "text-[#e5c997]" : "text-gray-300"}>
             ABOUT US
           </Link>
-          <Link href="/contact" onClick={() => setMobileOpen(false)} className={pathname === "/contact" ? "text-[#c8102e]" : "text-gray-300"}>
+          <Link href="/contact" onClick={() => setMobileOpen(false)} className={pathname === "/contact" ? "text-[#e5c997]" : "text-gray-300"}>
             CONTACT US
           </Link>
           <Link href="/events" onClick={() => setMobileOpen(false)} className="mt-2">
-            <button className="w-full py-3 bg-[#c8102e] text-[#ffffff] font-bold tracking-widest uppercase">
+            <button className="w-full btn-gold-luxury py-3.5 text-xs font-extrabold tracking-widest uppercase">
               BOOK TICKETS NOW
             </button>
           </Link>

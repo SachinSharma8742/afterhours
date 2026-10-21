@@ -58,7 +58,7 @@ function renderDescription(text) {
       const heading = line.replace(/^#{1,4}\s*/, "");
       elements.push(
         <div key={key++} className="mt-6 mb-3 flex items-center gap-2">
-          <div className="w-1 h-6 bg-[#c8102e] rounded-full shrink-0" />
+          <div className="w-1 h-6 bg-[#5a1826] rounded-full shrink-0" />
           <h4 className="font-bebas text-xl sm:text-2xl tracking-wider text-white uppercase">
             {heading}
           </h4>
@@ -86,7 +86,7 @@ function renderDescription(text) {
       const content = line.replace(/^•\s*/, "");
       elements.push(
         <div key={key++} className="flex items-start gap-2.5 ml-1">
-          <span className="mt-1.5 w-1.5 h-1.5 bg-[#c8102e] rounded-full shrink-0" />
+          <span className="mt-1.5 w-1.5 h-1.5 bg-[#5a1826] rounded-full shrink-0" />
           <span className="text-xs sm:text-sm text-gray-300 leading-relaxed font-medium">
             {content}
           </span>
@@ -103,7 +103,7 @@ function renderDescription(text) {
           href={line}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs text-[#c8102e] hover:underline font-medium break-all"
+          className="text-xs text-[#5a1826] hover:underline font-medium break-all"
         >
           {line}
         </a>
@@ -153,7 +153,7 @@ export default function EventDetailsPage({ params }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white pt-32 pb-24 flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-2 border-[#c8102e] border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-2 border-[#5a1826] border-t-transparent rounded-full animate-spin" />
         <span className="text-xs font-black uppercase tracking-widest text-gray-400">
           LOADING EVENT...
         </span>
@@ -165,7 +165,7 @@ export default function EventDetailsPage({ params }) {
   if (!event) {
     return (
       <div className="min-h-screen bg-black text-white pt-32 pb-24 text-center flex flex-col items-center gap-6 px-4">
-        <div className="w-16 h-16 bg-[#6e0008] border border-[#c8102e] rounded-2xl flex items-center justify-center">
+        <div className="w-16 h-16 bg-[#6e0008] border border-[#5a1826] rounded-2xl flex items-center justify-center">
           <Calendar className="w-8 h-8 text-white" />
         </div>
         <div className="flex flex-col gap-2">
@@ -191,10 +191,10 @@ export default function EventDetailsPage({ params }) {
     ? endTime
       ? `${startTime} – ${endTime}`
       : `${startTime} ONWARDS`
-    : "06:00 PM ONWARDS";
+    : "06:00 PM – 10:00 PM";
 
   return (
-    <div className="min-h-screen bg-black text-white font-montserrat">
+    <div className="min-h-screen bg-[#0e0a0c] text-[#f7f1e5] font-montserrat">
 
       {/* ════════════════════════════════════════════════════════════
           HERO BANNER — full-bleed immersive image
@@ -203,10 +203,10 @@ export default function EventDetailsPage({ params }) {
         <img
           src={
             event.banner_url ||
-            "/images/event.jpeg"
+            "/images/hero-banner.png"
           }
           alt={event.title}
-          className="w-full h-full object-cover scale-105 brightness-[0.6]"
+          className="w-full h-full object-cover scale-105 brightness-[0.7]"
         />
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
@@ -216,7 +216,7 @@ export default function EventDetailsPage({ params }) {
         <div className="absolute top-24 sm:top-28 left-4 sm:left-8 z-20">
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-xs font-bold text-gray-300 hover:text-white hover:border-[#c8102e] transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-xs font-bold text-gray-300 hover:text-white hover:border-[#5a1826] transition-all"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             ALL EVENTS
@@ -228,11 +228,11 @@ export default function EventDetailsPage({ params }) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-2.5 mb-4">
-              <span className="px-3 py-1 bg-black/70 backdrop-blur-sm border border-[#c8102e] rounded-full text-[10px] font-black uppercase tracking-widest text-[#c8102e]">
+              <span className="px-3 py-1 bg-black/70 backdrop-blur-sm border border-[#5a1826] rounded-full text-[10px] font-black uppercase tracking-widest text-[#5a1826]">
                 {event.category_name || "NIGHTLIFE & PARTIES"}
               </span>
               {event.is_featured && (
-                <span className="px-3 py-1 bg-[#c8102e] rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(200,16,46,0.5)]">
+                <span className="px-3 py-1 bg-[#5a1826] rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-[0_0_15px_rgba(90, 24, 38,0.5)]">
                   ★ FEATURED
                 </span>
               )}
@@ -262,39 +262,39 @@ export default function EventDetailsPage({ params }) {
       <section className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 mb-10">
         <div className="grid grid-cols-3 gap-1.5 sm:gap-3.5 max-w-3xl">
           {/* Date */}
-          <div className="p-3 sm:p-4 bg-black/90 backdrop-blur-md border border-[#c8102e]/40 border-l-2 sm:border-l-4 border-l-[#c8102e] rounded-r-xl rounded-l-md flex items-center gap-2 sm:gap-3">
-            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#c8102e] shrink-0" />
+          <div className="p-3 sm:p-4 bg-[#161013] border border-[#e5c997]/20 rounded-xl flex items-center gap-2 sm:gap-3 shadow-sm">
+            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#e5c997] shrink-0" />
             <div className="overflow-hidden">
-              <div className="text-[9px] sm:text-[11px] font-extrabold uppercase text-white tracking-wider truncate">
+              <div className="text-[9px] sm:text-[11px] font-bold uppercase text-[#f7f1e5] tracking-wider truncate">
                 {formatDate(event.start_date, false)}
               </div>
-              <div className="text-[7.5px] sm:text-[9px] font-mono text-gray-400 uppercase tracking-widest">
+              <div className="text-[7.5px] sm:text-[9px] font-mono text-[#9c8e82] uppercase tracking-widest">
                 DATE
               </div>
             </div>
           </div>
 
           {/* Time */}
-          <div className="p-3 sm:p-4 bg-black/90 backdrop-blur-md border border-[#c8102e]/40 border-l-2 sm:border-l-4 border-l-[#c8102e] rounded-r-xl rounded-l-md flex items-center gap-2 sm:gap-3">
-            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#c8102e] shrink-0" />
+          <div className="p-3 sm:p-4 bg-[#161013] border border-[#e5c997]/20 rounded-xl flex items-center gap-2 sm:gap-3 shadow-sm">
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#e5c997] shrink-0" />
             <div className="overflow-hidden">
-              <div className="text-[9px] sm:text-[11px] font-extrabold uppercase text-white tracking-wider truncate">
+              <div className="text-[9px] sm:text-[11px] font-bold uppercase text-[#f7f1e5] tracking-wider truncate">
                 {timeLabel}
               </div>
-              <div className="text-[7.5px] sm:text-[9px] font-mono text-gray-400 uppercase tracking-widest">
+              <div className="text-[7.5px] sm:text-[9px] font-mono text-[#9c8e82] uppercase tracking-widest">
                 TIME
               </div>
             </div>
           </div>
 
           {/* Venue */}
-          <div className="p-3 sm:p-4 bg-black/90 backdrop-blur-md border border-[#c8102e]/40 border-l-2 sm:border-l-4 border-l-[#c8102e] rounded-r-xl rounded-l-md flex items-center gap-2 sm:gap-3">
-            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#c8102e] shrink-0" />
+          <div className="p-3 sm:p-4 bg-[#161013] border border-[#e5c997]/20 rounded-xl flex items-center gap-2 sm:gap-3 shadow-sm">
+            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#e5c997] shrink-0" />
             <div className="overflow-hidden flex-1">
-              <div className="text-[9px] sm:text-[11px] font-extrabold uppercase text-white tracking-wider truncate">
+              <div className="text-[9px] sm:text-[11px] font-bold uppercase text-[#f7f1e5] tracking-wider truncate">
                 {event.venue_name}
               </div>
-              <div className="text-[7.5px] sm:text-[9px] font-mono text-gray-400 uppercase tracking-widest truncate">
+              <div className="text-[7.5px] sm:text-[9px] font-mono text-[#9c8e82] uppercase tracking-widest truncate">
                 {event.city}
               </div>
             </div>
@@ -303,7 +303,7 @@ export default function EventDetailsPage({ params }) {
                 href={event.maps_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1.5 bg-black border border-gray-800 hover:border-[#c8102e] text-[#c8102e] transition-colors rounded-lg shrink-0"
+                className="p-1.5 bg-black border border-gray-800 hover:border-[#5a1826] text-[#5a1826] transition-colors rounded-lg shrink-0"
                 title="Open in Google Maps"
               >
                 <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -323,40 +323,56 @@ export default function EventDetailsPage({ params }) {
           <div className="lg:col-span-2 flex flex-col gap-8">
 
             {/* Host Banner */}
-            <div className="p-5 bg-[#0a0a0a] border border-[#c8102e]/30 rounded-2xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#6e0008] border border-[#c8102e] rounded-xl flex items-center justify-center text-white font-black text-sm shrink-0">
-                AH
-              </div>
+            <div className="p-5 bg-[#161013] border border-[#e5c997]/25 rounded-2xl flex items-center gap-4 shadow-sm">
+              <img
+                src="/images/logo.png?v=afterhours-v5"
+                alt="AFTER HOURS"
+                className="w-14 h-14 rounded-xl object-cover border border-[#e5c997]/50 shrink-0"
+              />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h4 className="font-bold text-white text-sm truncate">
-                    AfterHours Management
+                  <h4 className="font-bold text-[#f7f1e5] text-sm truncate">
+                    AFTER HOURS
                   </h4>
-                  <UserCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <UserCheck className="w-4 h-4 text-[#e5c997] shrink-0" />
                 </div>
-                <p className="text-xs text-gray-400 mt-0.5 font-medium truncate">
-                  Direct Production & In-House Gate Check-in
+                <p className="text-xs text-[#e5c997]/90 mt-0.5 font-medium truncate">
+                  Jaipur Premier Nightlife Host • Official Check-in
                 </p>
               </div>
               <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full shrink-0">
                 <Shield className="w-3 h-3 text-emerald-400" />
                 <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
-                  Verified
+                  Verified Host
                 </span>
               </div>
             </div>
 
-            {/* Event Description — beautifully rendered (collapsible on mobile) */}
-            <div className="bg-[#0a0a0a] border border-[#c8102e]/40 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-              {/* Subtle glow in corner */}
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#c8102e]/10 rounded-full blur-3xl pointer-events-none" />
+            {/* Registration Approval Banner from AroundU */}
+            <div className="p-4 bg-[#191115] border border-[#e5c997]/25 rounded-2xl flex items-start gap-3.5 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-[#e5c997]/15 border border-[#e5c997]/30 flex items-center justify-center shrink-0 text-[#e5c997]">
+                <Shield className="w-4 h-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#f7f1e5]">
+                    Approval Required — Registration
+                  </h4>
+                </div>
+                <p className="text-xs text-[#9c8e82] mt-1 leading-relaxed">
+                  The host reviews your booking request before confirming your spot. You'll receive a direct payment link on WhatsApp after approval.
+                </p>
+              </div>
+            </div>
 
+            {/* Event Description */}
+            <div className="bg-[#161013] border border-[#e5c997]/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5 pb-4 border-b border-gray-800">
-                  <div className="w-9 h-9 bg-[#c8102e]/15 border border-[#c8102e]/40 rounded-xl flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-[#c8102e]" />
+                <div className="flex items-center gap-3 mb-5 pb-4 border-b border-[#e5c997]/15">
+                  <div className="w-9 h-9 bg-[#22181d] border border-[#e5c997]/30 rounded-xl flex items-center justify-center text-[#e5c997]">
+                    <Sparkles className="w-4 h-4" />
                   </div>
-                  <h3 className="font-bebas text-2xl sm:text-3xl text-white tracking-wider">
+                  <h3 className="font-bebas text-2xl sm:text-3xl text-[#f7f1e5] tracking-wider">
                     ABOUT THIS EVENT
                   </h3>
                 </div>
@@ -379,7 +395,7 @@ export default function EventDetailsPage({ params }) {
 
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="sm:hidden mt-4 w-full py-2.5 px-4 bg-[#160002] border border-[#c8102e]/50 rounded-xl text-xs font-black uppercase tracking-widest text-[#c8102e] hover:bg-[#c8102e] hover:text-white transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(200,16,46,0.2)]"
+                  className="sm:hidden mt-4 w-full py-2.5 px-4 bg-[#160002] border border-[#5a1826]/50 rounded-xl text-xs font-black uppercase tracking-widest text-[#5a1826] hover:bg-[#5a1826] hover:text-white transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(90, 24, 38,0.2)]"
                 >
                   <span>{isExpanded ? "SHOW LESS" : "READ FULL EVENT DETAILS"}</span>
                   {isExpanded ? (
@@ -393,15 +409,15 @@ export default function EventDetailsPage({ params }) {
 
             {/* Quick Info Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#c8102e]/40 transition-colors">
-                <Users className="w-5 h-5 text-[#c8102e]" />
+              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#5a1826]/40 transition-colors">
+                <Users className="w-5 h-5 text-[#5a1826]" />
                 <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest">
                   AGE LIMIT
                 </span>
                 <span className="text-sm font-black text-white">16+ ONLY</span>
               </div>
-              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#c8102e]/40 transition-colors">
-                <Shield className="w-5 h-5 text-[#c8102e]" />
+              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#5a1826]/40 transition-colors">
+                <Shield className="w-5 h-5 text-[#5a1826]" />
                 <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest">
                   ENTRY
                 </span>
@@ -409,8 +425,8 @@ export default function EventDetailsPage({ params }) {
                   QR PASS + ID
                 </span>
               </div>
-              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#c8102e]/40 transition-colors col-span-2 sm:col-span-1">
-                <MapPin className="w-5 h-5 text-[#c8102e]" />
+              <div className="p-4 bg-[#0a0a0a] border border-gray-800 rounded-2xl text-center flex flex-col items-center gap-2 hover:border-[#5a1826]/40 transition-colors col-span-2 sm:col-span-1">
+                <MapPin className="w-5 h-5 text-[#5a1826]" />
                 <span className="text-[10px] font-mono uppercase text-gray-500 tracking-widest">
                   CITY
                 </span>

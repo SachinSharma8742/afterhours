@@ -20,7 +20,7 @@ export default function EventFilter({
   const isFiltered = selectedCategory !== "all" || selectedCity;
 
   return (
-    <div className="mb-10 p-4 sm:p-6 bg-black border border-[#c8102e]/40 rounded-2xl sm:rounded-3xl shadow-[0_0_30px_rgba(255,13,57,0.2)]">
+    <div className="mb-10 p-4 sm:p-6 bg-black border border-[#5a1826]/40 rounded-2xl sm:rounded-3xl shadow-[0_0_30px_rgba(90, 24, 38,0.2)]">
 
       {/* Category Tabs — horizontal scroll on mobile, wrap on desktop */}
       <div className="flex items-center gap-3 sm:gap-4">
@@ -34,8 +34,8 @@ export default function EventFilter({
               onClick={() => setSelectedCategory(cat.id)}
               className={`shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-widest transition-all ${
                 selectedCategory === cat.id
-                  ? "bg-[#c8102e] text-white border border-[#e01838] shadow-[0_0_15px_rgba(255,13,57,0.5)]"
-                  : "bg-[#0a0a0a] border border-gray-800 text-gray-400 hover:text-white hover:border-[#c8102e]"
+                  ? "bg-[#5a1826] text-white border border-[#7a2234] shadow-[0_0_15px_rgba(90, 24, 38,0.5)]"
+                  : "bg-[#0a0a0a] border border-gray-800 text-gray-400 hover:text-white hover:border-[#5a1826]"
               }`}
             >
               {cat.label}
@@ -51,7 +51,7 @@ export default function EventFilter({
               setSelectedCategory("all");
               setSelectedCity("");
             }}
-            className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-[#c8102e] hover:bg-white/5 transition-colors"
+            className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-gray-400 hover:text-[#5a1826] hover:bg-white/5 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">RESET</span>

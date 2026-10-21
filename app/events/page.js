@@ -62,14 +62,14 @@ function ExploreEventsContent() {
       />
 
       {loading ? (
-        <div className="p-16 text-center text-gray-400 text-xs font-black uppercase tracking-widest bg-black border border-[#c8102e]/30 rounded-2xl">
+        <div className="p-16 text-center text-gray-400 text-xs font-black uppercase tracking-widest bg-black border border-[#5a1826]/30 rounded-2xl">
           LOADING EVENTS...
         </div>
       ) : events.length > 0 ? (
         <EventGrid events={events} loading={false} onResetFilter={handleReset} />
       ) : (
-        <div className="p-16 bg-black border border-[#c8102e]/40 rounded-3xl text-center flex flex-col items-center gap-4 box-red-glow">
-          <div className="w-16 h-16 bg-[#6e0008] border border-[#c8102e] rounded-2xl flex items-center justify-center text-[#c8102e]">
+        <div className="p-16 bg-black border border-[#5a1826]/40 rounded-3xl text-center flex flex-col items-center gap-4 box-red-glow">
+          <div className="w-16 h-16 bg-[#6e0008] border border-[#5a1826] rounded-2xl flex items-center justify-center text-[#5a1826]">
             <Calendar className="w-8 h-8 text-white" />
           </div>
           <div className="flex flex-col gap-1 max-w-md">
@@ -86,18 +86,25 @@ function ExploreEventsContent() {
 
 export default function ExploreEventsPage() {
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-20 font-montserrat">
+    <div className="min-h-screen text-[#f7f1e5] pt-24 pb-20 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}
-        <div className="flex flex-col gap-2 mb-10 text-center sm:text-left">
-          <span className="text-xs font-black uppercase tracking-[0.35em] text-[#c8102e]">// OFFICIAL LINEUP</span>
-          <h1 className="font-bebas text-5xl sm:text-7xl tracking-wider uppercase text-white">
-            EXPLORE <span className="text-[#c8102e] red-text-glow">EVENTS & PASSES</span>
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-400 max-w-xl font-medium">
-            Browse upcoming nightlife events, music festivals, and live shows produced directly by AfterHours.
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-10 text-center sm:text-left">
+          <img
+            src="/images/logo.png?v=afterhours-v5"
+            alt="AfterHours Brand"
+            className="w-16 h-16 sm:w-18 sm:h-18 object-cover rounded-xl border border-[#e5c997]/40 mx-auto sm:mx-0 shrink-0"
+          />
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e5c997]">// OFFICIAL LINEUP</span>
+            <h1 className="font-bebas text-5xl sm:text-7xl tracking-wider uppercase text-[#f7f1e5]">
+              EXPLORE <span className="text-[#e5c997]">EVENTS & PASSES</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-[#9c8e82] max-w-xl font-normal">
+              Browse upcoming nightlife events, music festivals, and live shows produced directly by AfterHours.
+            </p>
+          </div>
         </div>
 
         <Suspense fallback={<div className="text-gray-400 text-xs font-bold uppercase tracking-widest">LOADING EVENTS...</div>}>

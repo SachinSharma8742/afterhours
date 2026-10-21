@@ -16,21 +16,27 @@ export default function TicketSelector({ event }) {
   const handleConsentAccept = () => {
     setShowConsentModal(false);
     if (typeof window !== "undefined") {
-      window.open("https://go.allevents.in/sl6sa", "_blank", "noopener,noreferrer");
+      window.open("https://aroundu.in/plan/jaipur-glow-and-A5F3B?ref=aroundu_app", "_blank", "noopener,noreferrer");
     }
   };
 
   return (
-    <div className="bg-black border-2 border-[#c8102e] rounded-3xl p-6 flex flex-col gap-6 box-red-glow">
+    <div className="bg-[#161013] border border-[#e5c997]/25 rounded-2xl p-6 flex flex-col gap-6 shadow-lg">
       <div className="flex items-center justify-between pb-4 border-b border-gray-900">
-        <div>
-          <h3 className="font-bebas text-3xl tracking-wider text-white flex items-center gap-2">
-            <Ticket className="w-6 h-6 text-[#c8102e]" />
-            ENTRY PASSES & PRICING
-          </h3>
-          <p className="text-xs text-gray-400 mt-0.5 font-mono">
-            Official pass details & entry options
-          </p>
+        <div className="flex items-center gap-3">
+          <img
+            src="/images/logo.png?v=afterhours-v5"
+            alt="AfterHours"
+            className="w-12 h-12 rounded-2xl object-cover border-2 border-[#ebd7b2]/60 shadow-[0_0_15px_rgba(88,24,38,0.8)] shrink-0"
+          />
+          <div>
+            <h3 className="font-bebas text-2xl sm:text-3xl tracking-wider text-white">
+              ENTRY PASSES & PRICING
+            </h3>
+            <p className="text-xs text-gray-400 mt-0.5 font-mono">
+              Official pass details & entry options
+            </p>
+          </div>
         </div>
       </div>
 
@@ -45,18 +51,18 @@ export default function TicketSelector({ event }) {
           return (
             <div
               key={t.id}
-              className="p-4 border bg-[#0a0a0a] border-gray-800 hover:border-[#c8102e]/60 transition-all rounded-2xl flex flex-col gap-1.5"
+              className="p-4 border bg-[#181115] border-[#e5c997]/15 hover:border-[#e5c997]/35 transition-colors rounded-xl flex flex-col gap-1.5"
             >
               <div className="flex items-center justify-between gap-3">
-                <span className="font-black text-white text-sm uppercase tracking-wider">
+                <span className="font-bold text-[#f7f1e5] text-sm uppercase tracking-wider">
                   {formattedName}
                 </span>
-                <span className="text-base font-black text-[#c8102e] font-mono-code">
+                <span className="text-base font-bold text-[#e5c997] font-mono-code">
                   {formatCurrency(t.price)}
                 </span>
               </div>
               {t.description && (
-                <p className="text-xs text-gray-400 font-medium leading-relaxed">
+                <p className="text-xs text-[#9c8e82] font-normal leading-relaxed">
                   {t.description}
                 </p>
               )}
@@ -66,17 +72,17 @@ export default function TicketSelector({ event }) {
       </div>
 
       {/* Summary Footer & Action Button */}
-      <div className="pt-2 border-t border-gray-900 flex flex-col gap-4">
+      <div className="pt-2 border-t border-[#e5c997]/15 flex flex-col gap-3">
         <button
           onClick={handleProceedClick}
-          className="btn-sharp-red py-4 text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(200,16,46,0.4)]"
+          className="btn-gold-luxury py-3.5 text-xs font-bold uppercase tracking-[0.14em] flex items-center justify-center gap-2 w-full"
         >
           <span>BUY TICKET NOW</span>
-          <ExternalLink className="w-4 h-4" />
+          <ExternalLink className="w-4 h-4 ml-1" />
         </button>
 
-        <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="flex items-center justify-center gap-2 text-[10px] text-[#9c8e82] font-medium uppercase tracking-wider">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#e5c997]" />
           <span>Verified Direct Entry Gate Passes</span>
         </div>
       </div>
